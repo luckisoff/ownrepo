@@ -16,6 +16,8 @@
         <h4 class="card-title">
           @if(request()->has('question_set_id'))
             Add new question to <b>{{ $current_question_set->title }}</b>
+          @elseif(request()->has('setquestion_id'))
+            Add new question to <b>{{ $setquestion->name }}</b>
           @else
             Add a new <b>Question</b>
           @endif
@@ -33,13 +35,19 @@
           <i class="material-icons">remove_red_eye</i> View all questions of
           <b>{{ $question_sets->find(request()->question_set_id)->title }}</b>
         </a>
+        @elseif(request()->has('setquestion_id'))
+        <a href="{{ route('question.show', request()->setquestion_id) }}"
+           class="btn btn-success btn-round btn-xs create-new">
+          <i class="material-icons">remove_red_eye</i> View all questions of
+          <b>{{ $setquestion->find(request()->setquestion_id)->name }}</b>
+        </a>
       @endif
 
       <div class="card-content">
         @if(!request()->has('sponsor_id'))
           @if(is_null(request()->question_set_id))
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 {{-- difficulty_level --}}
                 <div class="form-group asdh-select">
                   <label for="difficulty_level">Difficulty Level / Question No.</label>
@@ -60,7 +68,7 @@
                 </div>
                 {{-- ./difficulty_level --}}
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 {{-- categories --}}
                 <div class="form-group asdh-select">
                   <label for="question_category">Category</label>
@@ -81,6 +89,27 @@
                 </div>
                 {{-- ./categories --}}
               </div>
+
+              <div class="col-md-4">
+                <div class="form-group asdh-select">
+                  <label for="difficulty_level">Question Set</label>
+                  <select name="setquestion_id"
+                          id="setquestion_id"
+                          class="selectpicker"
+                          data-style="select-with-transition"
+                          {{--title="Select Category"--}}
+                          data-live-search="true"
+                          required="true"
+                          data-size="5">
+                    <option value="">Select Question Set / Level</option>
+                    @foreach($setquestion as $question)
+                      <option value="{{ $question->id }}" {{ $edit?$question->id==$model->setquestion_id?'selected':'':'' }}>{{ $question->name }}</option>
+                    @endforeach
+                  </select>
+                  <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
+                </div>
+              </div>
+
             </div>
           @else
             {{-- question_set --}}
@@ -105,6 +134,7 @@
           @endif
         @else
           {{-- sponsors --}}
+         
           <div class="form-group asdh-select">
             <label for="sponsor_id">Sponsor</label>
             <select name="sponsor_id"
@@ -126,6 +156,7 @@
           {{-- ./sponsors --}}
         @endif
 
+         
         {{--question--}}
         <div class="form-group label-floating">
           <label class="control-label" for="question">{{ ucwords('question in English') }}

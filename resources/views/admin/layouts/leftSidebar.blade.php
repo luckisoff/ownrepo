@@ -257,6 +257,15 @@
         <div class="collapse @if((request()->is('admin/question')||request()->is('admin/question/*')) && (!request()->has('question_set_id') && !request()->has('sponsor_id')))) in @endif"
              id="question">
           <ul class="nav">
+
+              <li @if(request()->is('admin/setquestion')) class="active" @endif>
+                  <a href="{{ route('setquestion.index') }}">
+                    <span class="sidebar-mini">&nbsp;</span>
+                    {{--<i class="material-icons">spellcheck</i>--}}
+                    <span class="sidebar-normal">All {{ ucfirst(str_plural('set question')) }}</span>
+                  </a>
+                </li>
+
             <li @if(request()->is('admin/question')) class="active" @endif>
               <a href="{{ route('question.index') }}">
                 <span class="sidebar-mini">&nbsp;</span>

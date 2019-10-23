@@ -5,7 +5,7 @@
 @section('content')
 
   <div class="card">
-    @include('extras.index_header',['custom_name'=>'Quiz Set'])
+    @include('extras.index_header',['custom_name'=>'Question Set'])
 
     <div class="card-content">
       <div class="table-responsive">
@@ -14,9 +14,9 @@
           <tr>
             <th width="40">#</th>
             {{-- <th width="150">Background Image</th> --}}
-            <th>Title</th>
-            <th>Start time</th>
-            <th>End time</th>
+            <th>Set Name</th>
+            <th>Reward Price</th>
+            <th>Set Status</th>
             <th width="140" class="text-center">Actions</th>
           </tr>
           </thead>
@@ -24,19 +24,17 @@
           @forelse($models as $key=>$model)
             <tr>
               <td>{{$key+1}}</td>
-              {{-- <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
-               --}}
-              <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->title}} ({{ $model->questions_count }})</a></td>
-              <td>{{$model->start_time->format('M d Y, h:i A')}}</td>
-              <td>{{$model->end_time->format('M d Y, h:i A')}}</td>
+              <td><a href="{{ route('setquestion.show', $model->id) }}">{{$model->name}} ({{ $model->questions_count }})</a></td>
+              <td>{{$model->price}}</td>
+              <td>{!!$model->status==1?"<span class='badge badge-success'>Active</span>":"<span class='badge badge-danger'>Deactive</span>"!!}</td>
               <td class="asdh-edit_and_delete td-actions">
-                <a href="{{ route('question.create',['setquestion_id' => $model->id]) }}"
+                <a href="{{ route('setquestion.create',['setquestion_id' => $model->id]) }}"
                    type="button"
                    class="btn btn-warning"
                    title="Add question">
                   <i class="material-icons">add</i>
                 </a>
-                <a href="{{ route('question-set.show', $model) }}"
+                <a href="{{ route('setquestion.show', $model) }}"
                    type="button"
                    class="btn btn-info"
                    title="See all questions of this set">

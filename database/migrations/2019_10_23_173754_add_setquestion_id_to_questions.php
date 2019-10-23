@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSetquestionsTable extends Migration
+class AddSetquestionIdToQuestions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateSetquestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('setquestions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('price')->nullable();
-			$table->boolean('status')->default(1);
-			$table->timestamps();
+        Schema::table('questions', function (Blueprint $table) {
+            $table->unsignedInteger('setquestion_id')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateSetquestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setquestions');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('setquestion_id');
+        });
     }
 }

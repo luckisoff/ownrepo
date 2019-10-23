@@ -23,6 +23,11 @@ class Question extends Model {
 		return $this->belongsTo(Category::class);
 	}
 
+
+	public function setquestion(){
+		return $this->belongsTo(Setquestion::class);
+	}
+
 	public function nepali() {
 		return $this->conversions->first();
 	}

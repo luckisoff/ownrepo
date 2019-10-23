@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Question;
+
 class Setquestion extends Model
 {
-    protected $fillable=['name'];
+    protected $fillable=['name','price','status'];
 
-    public function Question(){
+    public function question(){
         return $this->hasMany(Question::class);
     }
 }

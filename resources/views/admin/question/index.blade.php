@@ -21,6 +21,13 @@
       <a href="{{ route($routeType.'.create',['question_set_id' => $question_set->id]) }}" class="btn btn-success btn-round btn-xs create-new">
         <i class="material-icons">add_circle_outline</i> New Question
       </a>
+    @elseif(request()->is('admin/setquestion*'))
+      <div class="card-header card-header-text" data-background-color="green">
+        <h4 class="card-title">All questions of question set <b>{{ $setquestion->name }}</b></h4>
+      </div>
+      <a href="{{ route($routeType.'.create') }}" class="btn btn-success btn-round btn-xs create-new">
+        <i class="material-icons">add_circle_outline</i> New Question
+      </a>
     @else
       @include('extras.index_header')
     @endif
@@ -32,7 +39,7 @@
           <tr>
             <th width="40">#</th>
             <th>Question</th>
-            @if(!request()->is('admin/question-set*'))
+            @if(!request()->is('admin/question-set*') && !request()->is('admin/setquestion*'))
               <th>Q. No.</th>
               <th>Category</th>
             @endif
@@ -44,7 +51,7 @@
             <tr>
               <td>{{ request()->has('page')?((request()->page-1)*30 + $key+1):($key+1) }}</td>
               <td>{{ $model->name }}</td>
-              @if(!request()->is('admin/question-set*'))
+              @if(!request()->is('admin/question-set*') && !request()->is('admin/setquestion*'))
                 <td>{{ optional($model->difficulty_level)->level }}</td>
                 <td>{{ optional($model->category)->name }}</td>
               @endif

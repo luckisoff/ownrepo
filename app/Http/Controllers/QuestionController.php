@@ -10,6 +10,7 @@ use App\OptionConversion;
 use App\Question;
 use App\QuestionSet;
 use App\Sponsor;
+use App\Setquestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,6 +28,7 @@ class QuestionController extends AsdhController {
 		$this->website['models'] = Question::offline()->with('difficulty_level')->latest()->paginate($this->default_pagination_limit);
 		// $this->website['models']            = Question::offline()->with('difficulty_level')->latest()->get();
 		$this->website['difficulty_levels'] = DifficultyLevel::select('id', 'level')->orderBy('level')->get();
+		
 
 		return view('admin.question.index', $this->website);
 	}
@@ -46,6 +48,8 @@ class QuestionController extends AsdhController {
 			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
 		}
 
+		$this->website['setquestion']=Setquestion::select('id','name')->orderBy('name')->get();
+		
 		return view('admin.question.create', $this->website);
 	}
 
@@ -57,6 +61,7 @@ class QuestionController extends AsdhController {
 				$question->question_set_id = $request->question_set_id;
 				$question->online          = true;
 			} else {
+				$question->setquestion_id	= $request->setquestion_id;
 				$question->category_id         = $request->category_id;
 				$question->difficulty_level_id = $request->difficulty_level_id;
 				$question->online              = false;
@@ -106,6 +111,7 @@ class QuestionController extends AsdhController {
 			} else {
 				$this->website['difficulty_levels'] = DifficultyLevel::orderBy('level')->get();
 				$this->website['categories']        = Category::orderBy('name')->get();
+				$this->website['setquestion']	=Setquestion::orderBy('name')->get();
 			}
 		} else {
 			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
@@ -116,10 +122,12 @@ class QuestionController extends AsdhController {
 
 	public function update(QuestionRequest $request, Question $question) {
 		// if create question is clicked from question set index page
+
 		if(!$request->has('sponsor_id')) {
 			if($request->has('question_set_id')) {
 				$question->question_set_id = $request->question_set_id;
 			} else {
+				$question->setquestion_id=$request->setquestion_id;
 				$question->category_id         = $request->category_id;
 				$question->difficulty_level_id = $request->difficulty_level_id;
 			}
@@ -156,7 +164,7 @@ class QuestionController extends AsdhController {
 			]);
 		}
 
-		return back()->with('success_message', 'Question and answers successfully added.');
+		return redirect('admin/question')->with('success_message', 'Question and answers successfully added.');
 	}
 
 	public function destroy(Question $question) {

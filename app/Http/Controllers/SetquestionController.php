@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SetQuestionRequest;
 use Illuminate\Http\Request;
-
+use App\Setquestion;
 class SetquestionController extends AsdhController
 {
     protected $prefix='setquestion';
@@ -15,44 +16,58 @@ class SetquestionController extends AsdhController
     }
     
     public function index() {
-		$this->website['models'] = Question::offline()->with('difficulty_level')->latest()->paginate($this->default_pagination_limit);
-		// $this->website['models']            = Question::offline()->with('difficulty_level')->latest()->get();
-		$this->website['difficulty_levels'] = DifficultyLevel::select('id', 'level')->orderBy('level')->get();
-
-		return view('admin.question.index', $this->website);
+		
+		$this->website['models'] = Setquestion::withCount('question')->latest()->paginate($this->default_pagination_limit);
+		return view('admin.setquestion.index', $this->website);
 	}
 
 	public function create() {
 		$this->website['edit'] = false;
-		// if create question is clicked from question set index page
-		if(!request()->has('sponsor_id')) {
-			if(request()->has('question_set_id')) {
-				$this->website['current_question_set'] = QuestionSet::find(request()->question_set_id);
-				$this->website['question_sets']        = QuestionSet::get();
-			} else {
-				$this->website['difficulty_levels'] = DifficultyLevel::orderBy('level')->get();
-				$this->website['categories']        = Category::orderBy('name')->get();
-			}
-		} else {
-			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
+		return view('admin.setquestion.create', $this->website);
+	}
+
+	public function show(Setquestion $setquestion){
+		$this->website['routeType']    = 'question';
+		$this->website['setquestion'] = $setquestion;
+		$this->website['models']       = $setquestion->question()->paginate($this->default_pagination_limit);
+
+		return view('admin.question.index', $this->website);
+	}
+
+	public function store(SetQuestionRequest $request) {
+
+		return Setquestion::create([
+			'name'          => $request->name,
+			'price'          => $request->price?$request->price:0,
+			'status'        => 1,
+		])
+			? redirect('admin/setquestion')->with('success_message', 'Question Set successfully added.')
+			: back()->with('failure_message', 'Question Set could not be added. Please try again later.');
+	}
+
+	public function edit(Setquestion $setquestion) {
+		$this->website['edit']  = true;
+
+		$this->website['model'] = $setquestion;
+		
+		return view('admin.setquestion.create', $this->website);
+	}
+
+	public function update(SetQuestionRequest $request, Setquestion $setquestion) {
+		return $setquestion->update([
+			'name'          => $request->name,
+			'status' => $request->status,
+			'price'          => $request->price,
+		])
+			? redirect('admin/setquestion')->with('success_message', 'Set successfully updated.')
+			: back()->with('failure_message', 'Set could not be updated. Please try again later.');
+	}
+
+	public function destroy(Setquestion $setquestion) {
+		if($setquestion->delete()) {
+			return back()->with('success_message', 'Set successfully deleted.');
 		}
 
-		return view('admin.question.create', $this->website);
-	}
-
-	public function store(QuestionRequest $request) {
-		
-	}
-
-	public function edit(Question $question) {
-		
-	}
-
-	public function update(QuestionRequest $request, Question $question) {
-		
-	}
-
-	public function destroy() {
-		
+		return back()->with('failure_message', 'Set could not be deleted. Please try again later.');
 	}
 }

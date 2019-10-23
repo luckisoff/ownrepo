@@ -16,6 +16,7 @@ class CreateQuestionsTable extends Migration {
 			// when online we don't need difficulty_level_id
 			$table->unsignedInteger('difficulty_level_id')->nullable();
 			$table->unsignedInteger('category_id')->nullable();
+			
 			// when offline we don't need difficulty_set_id
 			$table->unsignedInteger('question_set_id')->nullable();
 			$table->string('name', 1000);
@@ -25,6 +26,7 @@ class CreateQuestionsTable extends Migration {
 			$table->boolean('question_of_the_day')->default(0);
 			$table->timestamps();
 
+			
 			$table->foreign('difficulty_level_id')->references('id')->on('difficulty_levels')->onDelete('cascade');
 			$table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 			$table->foreign('question_set_id')->references('id')->on('question_sets')->onDelete('cascade');
