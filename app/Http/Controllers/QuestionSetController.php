@@ -17,7 +17,7 @@ class QuestionSetController extends AsdhController {
 
 	public function index() {
 		$this->website['models'] = QuestionSet::withCount('questions')->latest()->paginate($this->default_pagination_limit);
-
+		
 		return view('admin.question-set.index', $this->website);
 	}
 

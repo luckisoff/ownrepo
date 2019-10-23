@@ -13,7 +13,7 @@
           <thead>
           <tr>
             <th width="40">#</th>
-            <th width="150">Background Image</th>
+            {{-- <th width="150">Background Image</th> --}}
             <th>Title</th>
             <th>Start time</th>
             <th>End time</th>
@@ -24,7 +24,8 @@
           @forelse($models as $key=>$model)
             <tr>
               <td>{{$key+1}}</td>
-              <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
+              {{-- <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
+               --}}
               <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->title}} ({{ $model->questions_count }})</a></td>
               <td>{{$model->start_time->format('M d Y, h:i A')}}</td>
               <td>{{$model->end_time->format('M d Y, h:i A')}}</td>

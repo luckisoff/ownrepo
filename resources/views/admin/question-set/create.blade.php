@@ -22,8 +22,8 @@
         <div class="row">
           <div class="col-md-2">
             @if($edit)
-              @include('extras.input_image', ['input_image'=>$model->image(200,200,'sponser_image'), 'image_name_field'=>'sponser_image', 'center'=>false, 'display_name' => 'background image'])
-            @else
+              @include('extras.input_image', ['image_name_field'=>'sponser_image', 'center'=>false, 'display_name' => 'background image'])
+              @else
               @include('extras.input_image', ['image_name_field'=>'sponser_image', 'center'=>false, 'display_name' => 'background image'])
             @endif
           </div>

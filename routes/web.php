@@ -31,6 +31,9 @@ Route::prefix('admin')->group(function() {
 			Route::resource('prize', 'PrizeController');
 			Route::resource('ads', 'AdsController');
 
+
+			Route::resource('setquestion','SetQuestionController');
+
 			Route::get('select-user-from-registration', 'KbcRegistrationController@selectUserRandomly')->name('registration.selection');
 
 			Route::prefix('advertisement')->group(function() {
