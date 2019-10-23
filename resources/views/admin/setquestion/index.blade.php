@@ -24,16 +24,16 @@
           @forelse($models as $key=>$model)
             <tr>
               <td>{{$key+1}}</td>
-              <td><a href="{{ route('setquestion.show', $model->id) }}">{{$model->name}} ({{ $model->questions_count }})</a></td>
+              <td><a href="{{ route('setquestion.show', $model->id) }}">{{$model->name}} ({{ $model->question_count }})</a>
+                @if($model->question_count<=10)
+                  <span style="color:red">*****</span>
+                @elseif($model->question_count<15)
+                  <span style="color:red">***</span>
+                @endif
+              </td>
               <td>{{$model->price}}</td>
               <td>{!!$model->status==1?"<span class='badge badge-success'>Active</span>":"<span class='badge badge-danger'>Deactive</span>"!!}</td>
               <td class="asdh-edit_and_delete td-actions">
-                <a href="{{ route('setquestion.create',['setquestion_id' => $model->id]) }}"
-                   type="button"
-                   class="btn btn-warning"
-                   title="Add question">
-                  <i class="material-icons">add</i>
-                </a>
                 <a href="{{ route('setquestion.show', $model) }}"
                    type="button"
                    class="btn btn-info"
