@@ -1,0 +1,4 @@
+[17-Feb-2018 17:14:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/wwwkbcnepal/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/wwwkbcnepal/public_html/config/mail.php on line 19

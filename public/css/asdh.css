@@ -1,0 +1,83 @@
+.asdh-center_image_inside_me {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  display: block; }
+  .asdh-center_image_inside_me img {
+    position: absolute;
+    width: 100%; }
+
+.primary-nav {
+  background: darkslategrey;
+  height: 50px; }
+  .primary-nav > ul > li {
+    float: left; }
+  .primary-nav ul {
+    margin-bottom: 0;
+    padding-left: 0; }
+    .primary-nav ul li {
+      position: relative;
+      list-style-type: none;
+      background: darkslategrey; }
+      .primary-nav ul li:hover, .primary-nav ul li.active {
+        background: yellowgreen; }
+        .primary-nav ul li:hover > a, .primary-nav ul li.active > a {
+          color: black; }
+      .primary-nav ul li:hover ul {
+        display: block; }
+      .primary-nav ul li a {
+        text-decoration: none;
+        color: navajowhite;
+        padding: 0 15px 0;
+        line-height: 50px;
+        display: block; }
+      .primary-nav ul li ul {
+        display: none;
+        min-width: 200px;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 1000; }
+        .primary-nav ul li ul li {
+          background: #274242; }
+          .primary-nav ul li ul li:hover {
+            background: #477777; }
+            .primary-nav ul li ul li:hover > a {
+              color: darkseagreen; }
+          .primary-nav ul li ul li a {
+            line-height: 40px; }
+
+.all-posts {
+  padding: 20px; }
+  .all-posts .header h1 {
+    color: grey;
+    margin-top: 0; }
+  .all-posts .post {
+    -webkit-box-shadow: rgba(0,0,0,0.3) 0 0 5px;
+    -moz-box-shadow: rgba(0,0,0,0.3) 0 0 5px;
+    box-shadow: rgba(0,0,0,0.3) 0 0 5px;
+    background-color: white;
+    padding: 10px 15px;
+    margin-bottom: 20px; }
+    .all-posts .post .post-date {
+      color: darkgray;
+      font-size: 11px;
+      font-style: italic; }
+    .all-posts .post img {
+      width: 100%;
+      height: auto; }
+    .all-posts .post .post-title a {
+      color: grey;
+      text-decoration: none; }
+
+.post-detail .header h1 {
+  color: grey; }
+.post-detail .body .image {
+  text-align: center;
+  margin-bottom: 20px; }
+  .post-detail .body .image img {
+    width: 60%;
+    height: auto; }
+
+/*# sourceMappingURL=asdh.css.map */

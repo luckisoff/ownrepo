@@ -1,0 +1,47 @@
+@import "variables";
+
+@mixin box-shadow($value:"rgba(0,0,0,0.3) 0 0 5px") {
+  $unquoted_value : unquote($value);
+  -webkit-box-shadow : $unquoted_value;
+  -moz-box-shadow    : $unquoted_value;
+  box-shadow         : $unquoted_value;
+}
+
+@mixin transition($value) {
+  $unquoted_value : unquote($value);
+  -webkit-transition : $unquoted_value;
+  -moz-transition    : $unquoted_value;
+  -ms-transition     : $unquoted_value;
+  -o-transition      : $unquoted_value;
+  transition         : $unquoted_value;
+}
+
+@mixin animation($value) {
+  $unquoted_value : unquote($value);
+  -webkit-animation : $unquoted_value;
+  -o-animation      : $unquoted_value;
+  animation         : $unquoted_value;
+}
+
+@mixin transform($value) {
+  $unquoted_value : unquote($value);
+  -webkit-transform : $unquoted_value;
+  -moz-transform    : $unquoted_value;
+  -ms-transform     : $unquoted_value;
+  -o-transform      : $unquoted_value;
+  transform         : $unquoted_value;
+}
+
+%asdh-margin_bottom {
+  margin-bottom : 20px;
+  @media(max-width : $xs_sm) {
+    margin-bottom : 10px;
+  }
+}
+
+%asdh-margin_top {
+  margin-top : 20px;
+  @media(max-width : $xs_sm) {
+    margin-top : 10px;
+  }
+}

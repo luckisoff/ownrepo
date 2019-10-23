@@ -1,0 +1,2 @@
+[17-Feb-2018 17:34:35 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/wwwkbcnepal/public_html/app/Http/Resources/AdvertisementResource.php on line 8
+[17-Feb-2018 17:34:44 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/wwwkbcnepal/public_html/app/Http/Resources/AdvertisementResource.php on line 8

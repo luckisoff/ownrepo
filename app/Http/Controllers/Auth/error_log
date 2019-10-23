@@ -1,0 +1,1 @@
+[17-Feb-2018 17:33:56 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/wwwkbcnepal/public_html/app/Http/Controllers/Auth/RegisterController.php on line 13

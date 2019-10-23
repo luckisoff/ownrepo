@@ -1,0 +1,40 @@
+$xs_sm : 768px;
+$md : 992px;
+$lg : 1200px;
+
+// Media Query Ranges
+$small-screen-up: 601px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1201px !default;
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$extra-large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+
+// colors
+$shadow_color : rgba(black, 0.3);
+$asdh-border_color : #D3E0E9;
+$nav_bar_active_color : #FFFF00;
+$nice-color1 : #FFA200;
+$nice-color2 : #00A03E;
+$nice-color3 : #24A8AC;
+$nice-color4 : #0087CB;
+$nice-color5 : #982395;
+//$theme_color : #e91e63;
+$theme_color : $nice-color4;
+
+// Brands
+$primary : #3097D1;
+$info : #8EB4CB;
+$success : #2AB27B;
+$warning : #CBB956;
+$danger : #BF5329;
+
+$navigation_bar_height : 50px;
+$footer_height : $navigation_bar_height;

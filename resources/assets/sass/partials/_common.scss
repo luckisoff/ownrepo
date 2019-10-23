@@ -1,0 +1,13 @@
+@import "mixins";
+
+.asdh-center_image_inside_me {
+  width    : 100px;
+  height   : 100px;
+  position : relative;
+  overflow : hidden;
+  display  : block;
+  img {
+    position : absolute;
+    width    : 100%;
+  }
+}

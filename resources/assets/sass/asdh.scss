@@ -1,0 +1,117 @@
+@import "partials/common";
+
+$navigationBackgroundColor : darkslategrey;
+$navigationActiveBackgroundColor : yellowgreen;
+.primary-nav {
+  background : darkslategrey;
+  height     : 50px;
+  > ul {
+    > li {
+      float : left;
+    }
+  }
+
+  ul {
+    margin-bottom : 0;
+    padding-left  : 0;
+    li {
+      &:hover, &.active {
+        background : $navigationActiveBackgroundColor;
+        > a {
+          color : black;
+        }
+      }
+      &:hover {
+        ul {
+          display : block;
+        }
+      }
+      position        : relative;
+      list-style-type : none;
+      background      : $navigationBackgroundColor;
+      a {
+        text-decoration : none;
+        color           : navajowhite;
+        padding         : 0 15px 0;
+        line-height     : 50px;
+        display         : block;
+      }
+
+      ul {
+        display   : none;
+        min-width : 200px;
+        position  : absolute;
+        top       : 50px;
+        left      : 0;
+        z-index   : 1000;
+        li {
+          &:hover {
+            background : $navigationBackgroundColor*1.5;
+            > a {
+              color : darkseagreen;
+            }
+          }
+          background : $navigationBackgroundColor / 1.2;
+          a {
+            line-height : 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.all-posts {
+  padding : 20px;
+  .header {
+    h1 {
+      color      : grey;
+      margin-top : 0;
+    }
+  }
+  .post {
+    @include box-shadow();
+    background-color : white;
+    padding          : 10px 15px;
+    margin-bottom    : 20px;
+
+    .post-date {
+      color      : darkgray;
+      font-size  : 11px;
+      font-style : italic;
+    }
+
+    img {
+      width  : 100%;
+      height : auto;
+    }
+
+    .post-title {
+      a {
+        color           : grey;
+        text-decoration : none;
+      }
+    }
+  }
+}
+
+.post-detail {
+  .header {
+    h1 {
+      color : grey;
+    }
+  }
+  .body {
+    .image {
+      text-align    : center;
+      margin-bottom : 20px;
+      img {
+        width  : 60%;
+        height : auto;
+      }
+    }
+    .description {
+
+    }
+  }
+}
