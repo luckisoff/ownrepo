@@ -17,17 +17,20 @@ class LeaderboardController extends CommonController {
 	// save or update points obtained by user (leaderboard)
 	// finished
 	public function save_user_points(Request $request) {
+		
 		$authUser = auth()->guard('api')->user();
 		/*if($authUser->id == 12500 || $authUser->id == 38065) {
 			return $this->get_logged_in_user_points();
 		}*/
-		// $validation = $this->my_validation(['point' => 'required|integer|min:0|max:10000000']);
+
+		$validation = $this->my_validation(['point' => 'required|integer|min:0|max:10000000']);
 		$validation = $this->my_validation(['point' => 'required|string']);
 		if(!$validation['status']) {
 			return response()->json(['status' => false, 'code' => 400, 'message' => $validation['message']], 400);
 		}
-
+		
 		$decodedPoint = base64_decode($request->input('point'), true);
+		//$decodedPoint=$request->input('point');
 
 		if(!is_numeric($decodedPoint) || $decodedPoint > 135) {
 			return response()->json([
@@ -38,7 +41,7 @@ class LeaderboardController extends CommonController {
 		}
 
 		$week_day = $this->get_week_day();
-
+		
 		try {
 			DB::transaction(function() use ($week_day, $decodedPoint) {
 				$leaderboard = Leaderboard::firstOrCreate(

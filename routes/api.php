@@ -85,9 +85,10 @@ Route::get('get-leaderboard-points3', 'Api\LeaderboardController@get_leaderboard
 
 Route::group(['namespace'=>'Api'],function(){
 	Route::get('test', 'CommonController@test');
+	Route::post('save', 'LeaderboardController@save_user_points');
 });
 
-Route::post('save', 'LeaderboardController@save_user_points');
+
 
 //gundruk api
 
