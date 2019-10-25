@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-
+use Passport;
 class AppServiceProvider extends ServiceProvider {
 	/**
 	 * Bootstrap any application services.
@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider {
 			// Closing
 			curl_close($ch);
 
+			Passport::withoutCookieSerialization();
 			$response = json_decode($result, true);
 
 			return $response['success'];

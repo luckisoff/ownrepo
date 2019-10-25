@@ -33,6 +33,7 @@ Route::prefix('admin')->group(function() {
 
 
 			Route::resource('setquestion','SetQuestionController');
+			Route::resource('question-type','QuestionTypeController');
 
 			Route::get('select-user-from-registration', 'KbcRegistrationController@selectUserRandomly')->name('registration.selection');
 

@@ -14,8 +14,11 @@ class SingleUserLoginMiddleware {
 	 * @return mixed
 	 */
 	public function handle($request, Closure $next) {
+
 		$user = auth()->guard('api')->user();
 
+		return $user;
+		
 		if(is_null($user->last_login_at)) {
 			return $next($request);
 		}

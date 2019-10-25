@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SetQuestionRequest;
 use Illuminate\Http\Request;
 use App\Setquestion;
+use App\QuestionType;
 class SetquestionController extends AsdhController
 {
     protected $prefix='setquestion';
@@ -16,11 +17,13 @@ class SetquestionController extends AsdhController
     }
     
     public function index() {
+		
 		$this->website['models'] = Setquestion::withCount('question')->latest()->paginate($this->default_pagination_limit);
 		return view('admin.setquestion.index', $this->website);
 	}
 
 	public function create() {
+		$this->website['questiontypes']=QuestionType::orderBy('name','asc')->get();
 		$this->website['edit'] = false;
 		return view('admin.setquestion.create', $this->website);
 	}
@@ -46,17 +49,19 @@ class SetquestionController extends AsdhController
 
 	public function edit(Setquestion $setquestion) {
 		$this->website['edit']  = true;
-
+		$this->website['questiontypes']=QuestionType::orderBy('name','asc')->get();
 		$this->website['model'] = $setquestion;
 		
 		return view('admin.setquestion.create', $this->website);
 	}
 
 	public function update(SetQuestionRequest $request, Setquestion $setquestion) {
+		
 		return $setquestion->update([
 			'name'          => $request->name,
 			'status' => $request->status,
 			'price'          => $request->price,
+			'question_type_id'=>$request->question_type_id
 		])
 			? redirect('admin/setquestion')->with('success_message', 'Set successfully updated.')
 			: back()->with('failure_message', 'Set could not be updated. Please try again later.');

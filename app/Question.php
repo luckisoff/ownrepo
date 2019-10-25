@@ -7,6 +7,9 @@ class Question extends Model {
 		return asset("public/files/{$value}");
 	}
 
+	public function questionType(){
+		return $this->belongsTo(QuestionType::class);
+	}
 	public function options() {
 		return $this->hasMany(Option::class);
 	}

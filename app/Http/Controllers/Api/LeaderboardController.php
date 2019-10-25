@@ -14,23 +14,29 @@ use Illuminate\Support\Facades\Validator;
 class LeaderboardController extends CommonController {
 	private $point;
 
+
+    public function get_user_points($user_id){
+		/** @var User $user */
+		//$user = auth()->guard('api')->user();
+		$user=User::findOrFail($user_id);
+	
+        $leaderboard=Leaderboard::where('user_id',$user_id)->first();
+        return response()->json($leaderboard);
+		// $userTwoWeeksLeaderboardCount = $userTwoWeeksLeaderboard->count();
+		
+	}
 	// save or update points obtained by user (leaderboard)
 	// finished
 	public function save_user_points(Request $request) {
-		
-		$authUser = auth()->guard('api')->user();
-		/*if($authUser->id == 12500 || $authUser->id == 38065) {
-			return $this->get_logged_in_user_points();
-		}*/
-
-		$validation = $this->my_validation(['point' => 'required|integer|min:0|max:10000000']);
+	    
+	    $validation = $this->my_validation(['point' => 'required|integer|min:0|max:10000000']);
 		$validation = $this->my_validation(['point' => 'required|string']);
 		if(!$validation['status']) {
 			return response()->json(['status' => false, 'code' => 400, 'message' => $validation['message']], 400);
 		}
 		
-		$decodedPoint = base64_decode($request->input('point'), true);
-		//$decodedPoint=$request->input('point');
+		//$decodedPoint = base64_decode($request->input('point'), true);
+		$decodedPoint=$request->input('point');
 
 		if(!is_numeric($decodedPoint) || $decodedPoint > 135) {
 			return response()->json([
@@ -41,7 +47,58 @@ class LeaderboardController extends CommonController {
 		}
 
 		$week_day = $this->get_week_day();
+
+		$user_id=$request->user_id;
 		
+		try {
+			DB::transaction(function() use ($week_day, $decodedPoint,$user_id) {
+				$leaderboard = Leaderboard::firstOrCreate(
+					['user_id' => $user_id]
+				);
+				
+				if($decodedPoint > $leaderboard->highest_point) {
+					$leaderboard->highest_point       = $decodedPoint;
+					$leaderboard->highest_point_count = 1;
+					$leaderboard->highest_at          = now();
+				} elseif($decodedPoint == $leaderboard->highest_point) {
+					$leaderboard->highest_point_count += 1;
+				}
+				$leaderboard->point += $decodedPoint;
+				$leaderboard->count += 1;
+				$leaderboard->save();
+				$this->point = $leaderboard->point;
+			});
+		} catch(\Exception $exception) {
+			return response()->json([
+				'status'  => false,
+				'message' => [$exception->getMessage()],
+			]);
+		}
+		return $this->point;
+		//$authUser = auth()->guard('api')->user();
+		/*if($authUser->id == 12500 || $authUser->id == 38065) {
+			return $this->get_logged_in_user_points();
+		}*/
+		
+		// $validation = $this->my_validation(['point' => 'required|integer|min:0|max:10000000']);
+		
+		$validation = $this->my_validation(['point' => 'required|string']);
+		if(!$validation['status']) {
+			return response()->json(['status' => false, 'code' => 400, 'message' => $validation['message']], 400);
+		}
+
+		$decodedPoint = $request->input('point');//base64_decode($request->input('point'), true);
+
+		if(!is_numeric($decodedPoint) || $decodedPoint > 135) {
+			return response()->json([
+				'status'  => false,
+				'code'    => 400,
+				'message' => ['Invalid data'],
+			], 400);
+		}
+
+		$week_day = $this->get_week_day();
+
 		try {
 			DB::transaction(function() use ($week_day, $decodedPoint) {
 				$leaderboard = Leaderboard::firstOrCreate(

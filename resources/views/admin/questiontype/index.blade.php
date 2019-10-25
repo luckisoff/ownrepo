@@ -5,7 +5,7 @@
 @section('content')
 
   <div class="card">
-    @include('extras.index_header',['custom_name'=>'Question Set'])
+    @include('extras.index_header',['custom_name'=>'Question Type'])
 
     <div class="card-content">
       <div class="table-responsive">
@@ -14,10 +14,8 @@
           <tr>
             <th width="40">#</th>
             {{-- <th width="150">Background Image</th> --}}
-            <th>Set Name</th>
-            <th>Reward Price</th>
-            <th>Question Type</th>
-            <th>Set Status</th>
+            <th>Name</th>
+            <th>Points</th>
             <th width="140" class="text-center">Actions</th>
           </tr>
           </thead>
@@ -25,23 +23,23 @@
           @forelse($models as $key=>$model)
             <tr>
               <td>{{$key+1}}</td>
-              <td><a href="{{ route('setquestion.show', $model->id) }}">{{$model->name}} ({{ $model->question_count }})</a>
-                @if($model->question_count<=10)
-                  <span style="color:red">*****</span>
-                @elseif($model->question_count<15)
-                  <span style="color:red">***</span>
-                @endif
-              </td>
-              <td>{{$model->price}}</td>
-              <td>{{$model->question_type_id}}</td>
-              <td>{!!$model->status==1?"<span class='badge badge-success'>Active</span>":"<span class='badge badge-danger'>Deactive</span>"!!}</td>
+              {{-- <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
+               --}}
+              <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->name}}</a></td>
+              <td>{{$model->point}}</td>
               <td class="asdh-edit_and_delete td-actions">
-                <a href="{{ route('setquestion.show', $model) }}"
+                {{-- <a href="{{ route('question.create',['question_type_id' => $model->id]) }}"
+                   type="button"
+                   class="btn btn-warning"
+                   title="Add question">
+                  <i class="material-icons">add</i>
+                </a> --}}
+                {{-- <a href="{{ route('question-type.show', $model) }}"
                    type="button"
                    class="btn btn-info"
                    title="See all questions of this set">
                   <i class="material-icons">remove_red_eye</i>
-                </a>
+                </a> --}}
                 @include('extras.edit_delete', ['modal'=>$model, 'message'=>'You will not be able to recover your data in the future.'])
               </td>
             </tr>

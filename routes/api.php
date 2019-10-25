@@ -36,10 +36,10 @@ Route::group(['middleware' => ['auth:api']], function() {
 
 	Route::namespace('Api')->group(function() {
 		Route::middleware(['throttle:2,1', 'singleUserLogin'])->group(function() {
-			Route::post('save-user-points', 'LeaderboardController@save_user_points');
+			//Route::post('save-user-points', 'LeaderboardController@save_user_points');
 		});
 
-		Route::get('get-logged-in-user-points', 'LeaderboardController@get_logged_in_user_points');
+		//Route::get('get-logged-in-user-points', 'LeaderboardController@get_logged_in_user_points');
 		Route::get('get-leaderboard-points', 'LeaderboardController@get_leaderboard_points');
 
 		Route::get('news-feeds', 'NewsFeedController@index');
@@ -78,6 +78,10 @@ Route::get('advertisements', 'ApiController@advertisements');
 Route::get('get-leaderboard-points2', 'Api\LeaderboardController@get_leaderboard_points2')->name('leaderboard.second');
 Route::get('get-leaderboard-points3', 'Api\LeaderboardController@get_leaderboard_points3');
 
+Route::namespace('Api')->group(function() {
+	Route::get('get-logged-in-user-points/{id}', 'LeaderboardController@get_user_points');
+	Route::post('save-user-points', 'LeaderboardController@save_user_points');
+});
 
 //gundruk api
 

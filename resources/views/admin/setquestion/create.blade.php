@@ -106,6 +106,27 @@
             </div> --}}
 
             {{--submit--}}
+
+           
+              <div class="form-group asdh-select">
+                <label for="difficulty_level">Question Type</label>
+                <select name="question_type_id"
+                        id="questin_type_id"
+                        class="selectpicker"
+                        data-style="select-with-transition"
+                        {{--title="Select Category"--}}
+                        data-live-search="true"
+                        required="true"
+                        data-size="5">
+                  <option value="">Select Question Set / Level</option>
+                  @foreach($questiontypes as $type)
+                    <option value="{{ $type->id }}" {{ $edit?$type->id==$model->question_type_id?'selected':'':'' }}>{{ $type->name }}</option>
+                  @endforeach
+                </select>
+                <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
+              </div>
+            
+
             <div class="text-right" style="margin-top: 30px;">
               <button type="submit"
                       class="btn btn-success btn-fill btn-prevent-multiple-submit">{{ $edit?'Update':'Add' }}</button>
