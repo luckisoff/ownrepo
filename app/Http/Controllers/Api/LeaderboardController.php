@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class LeaderboardController extends CommonController {
 	private $point;
-
-
+	
     public function get_user_points($user_id){
 		/** @var User $user */
 		//$user = auth()->guard('api')->user();
