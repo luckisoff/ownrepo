@@ -258,6 +258,14 @@
              id="question">
           <ul class="nav">
 
+            <li @if(request()->is('admin/question-type')) class="active" @endif>
+              <a href="{{ route('setquestion.index') }}">
+                <span class="sidebar-mini">&nbsp;</span>
+                {{--<i class="material-icons">spellcheck</i>--}}
+                <span class="sidebar-normal">All {{ ucfirst(str_plural('Question type')) }}</span>
+              </a>
+            </li>
+            
               <li @if(request()->is('admin/setquestion')) class="active" @endif>
                   <a href="{{ route('setquestion.index') }}">
                     <span class="sidebar-mini">&nbsp;</span>
@@ -265,6 +273,8 @@
                     <span class="sidebar-normal">All {{ ucfirst(str_plural('set question')) }}</span>
                   </a>
                 </li>
+
+                
 
             <li @if(request()->is('admin/question')) class="active" @endif>
               <a href="{{ route('question.index') }}">
