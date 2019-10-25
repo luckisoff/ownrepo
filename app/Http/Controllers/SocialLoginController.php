@@ -33,7 +33,7 @@ class SocialLoginController extends Controller
   public function getFacebookCallback()
   {
     $data = Socialite::driver('facebook')->user();
-    dd($data);
+    //dd($data);
     $user = User::where('email', $data->email)->first();
     if (!is_null($user)) {
       Auth::login($user);
@@ -69,7 +69,7 @@ class SocialLoginController extends Controller
   public function getGoogleCallback()
   {
     $data = Socialite::driver('google')->user();
-    dd($data);
+    //dd($data);
     $user = User::where('email', $data->email)->first();
 
     if (!is_null($user)) {

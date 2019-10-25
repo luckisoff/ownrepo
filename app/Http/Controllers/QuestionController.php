@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionController extends AsdhController {
 	private $prefix = 'question';
-
+	protected $excel;
 	public function __construct() {
 		ini_set('memory_limit', '-1');
 		parent::__construct();
@@ -179,6 +179,10 @@ class QuestionController extends AsdhController {
 		return view('admin.question.excel-upload', $this->website);
 	}
 
+	public function getsetid($name){
+		$set=Setquestion::firstOrCreate(['name'=>$name,'status'=>0]);
+		return $set->id;
+	}
 	public function excelUploadStore(Request $request) {
 		Excel::load($request->excel_file, function($reader) {
 			$reader->each(function($sheet) {
@@ -192,9 +196,10 @@ class QuestionController extends AsdhController {
 					$question->name                = $sheet->question;
 					$question->type                = 'text';
 					$question->online              = 0;
+					$question->setquestion_id=$this->getsetid($sheet->set_name);
 					$question->save();
 
-					// convert question to nepali and save to database
+					//convert question to nepali and save to database
 					$question->conversions()->create([
 						'language_id' => '1',
 						'name'        => $sheet->question_nep,
@@ -219,7 +224,6 @@ class QuestionController extends AsdhController {
 				});
 			});
 		});
-
 		return back()->with('success_message', 'Question form file successfully uploaded');
 	}
 }
