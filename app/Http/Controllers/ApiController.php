@@ -225,9 +225,9 @@ class ApiController extends CommonController {
 
 		// request for access and refresh token for api authorization
 		$data = $this->request_access_and_refresh_tokens();
-
+		return $data;
 		// if there is an error, the $data variable will have error message associated with 'error' key.
-		if(array_key_exists('error', $data)) {
+		if(array_key_exists('error', $data=array())) {
 			$user->delete();
 
 			return response()->json(['status' => false, 'code' => 400, 'message' => $data], 400);
@@ -240,7 +240,7 @@ class ApiController extends CommonController {
 			$user->save();
 			$user->roles()->attach($normal_role->id);
 			// send verification email to newly created user
-			Mail::to($user)->send(new VerifyEmail($user));
+			//Mail::to($user)->send(new VerifyEmail($user));
 
 			return response()->json([
 				'status'              => true,
@@ -428,8 +428,10 @@ class ApiController extends CommonController {
 	// get questions according to question set
 	public function online_questions() {
 		// get today's question set collection
-		$question_set_collection = QuestionSetCollection::where('show_on', Carbon::today())->first();
+		//$question_set_collection = QuestionSetCollection::where('show_on', Carbon::today())->first();
+		$questions = Question::take(15)->get();
 
+		return $questions;
 		if(is_null($question_set_collection)) {
 			return response()->json([
 				'status'  => false,

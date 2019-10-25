@@ -12,6 +12,9 @@ class CommonController extends Controller {
 		ini_set('memory_limit', '-1');
 	}
 
+	public function test(){
+		return 'test';
+	}
 	protected function my_validation($validation, $messages = []) {
 		$validator = Validator::make(request()->all(), $validation, $messages);
 		if($validator->fails()) {

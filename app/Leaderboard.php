@@ -4,6 +4,7 @@ namespace App;
 
 class Leaderboard extends Model {
 	protected $dates = ['highest_at'];
+	protected $fillable=['point'];
 
 	public function pointAverage() {
 		return (int)($this->point / $this->count);

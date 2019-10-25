@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth:api']], function() {
 	Route::get('online-questions', 'ApiController@online_questions');
 	Route::get('question-of-the-day', 'ApiController@question_of_the_day');
 	Route::get('get-offline-questions-set', 'ApiController@get_offline_question_set');
-
+	
 	// Route::get('weekly-winners', 'ApiController@weekly_winners');
 	// Route::post('user-points', 'ApiController@user_points'); // save points gained by user
 	// Route::get('get-logged-in-user-points', 'ApiController@get_logged_in_user_points');
@@ -35,9 +35,9 @@ Route::group(['middleware' => ['auth:api']], function() {
 	Route::post('logout', 'ApiController@logout');
 
 	Route::namespace('Api')->group(function() {
-		Route::middleware(['throttle:2,1', 'singleUserLogin'])->group(function() {
-			Route::post('save-user-points', 'LeaderboardController@save_user_points');
-		});
+		// Route::middleware(['throttle:2,1', 'singleUserLogin'])->group(function() {
+		// 	Route::post('save-user-points', 'LeaderboardController@save_user_points');
+		// });
 
 		Route::get('get-logged-in-user-points', 'LeaderboardController@get_logged_in_user_points');
 		Route::get('get-leaderboard-points', 'LeaderboardController@get_leaderboard_points');
@@ -65,6 +65,10 @@ Route::group(['middleware' => ['auth:api']], function() {
 		Route::get('sponsor/{sponsor}/questions', 'SponsorController@show');
 		Route::get('sponsors', 'SponsorController@index');
 	});
+
+	Route::middleware(['throttle:2,1', 'singleUserLogin'])->group(function() {
+		Route::post('save-user-points', 'LeaderboardController@save_user_points');
+	});
 });
 // Route::get('test', 'ApiController@test');
 
@@ -75,7 +79,15 @@ Route::get('test', 'ApiController@test');
 Route::get('advertisements', 'ApiController@advertisements');
 Route::get('get-leaderboard-points2', 'Api\LeaderboardController@get_leaderboard_points2')->name('leaderboard.second');
 Route::get('get-leaderboard-points3', 'Api\LeaderboardController@get_leaderboard_points3');
+// Route::namespace('Sk')->group(function(){
+// 	Route::post('save', 'LeaderboardController@save_user_points');
+// });
 
+Route::group(['namespace'=>'Api'],function(){
+	Route::get('test', 'CommonController@test');
+});
+
+Route::post('save', 'LeaderboardController@save_user_points');
 
 //gundruk api
 
