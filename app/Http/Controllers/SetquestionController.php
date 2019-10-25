@@ -6,7 +6,7 @@ use App\Http\Requests\SetQuestionRequest;
 use Illuminate\Http\Request;
 use App\Setquestion;
 use App\QuestionType;
-class SetquestionController extends AsdhController
+class SetQuestionController extends AsdhController
 {
     protected $prefix='setquestion';
 
