@@ -254,11 +254,11 @@
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse @if((request()->is('admin/question')||request()->is('admin/question/*')) && (!request()->has('question_set_id') && !request()->has('sponsor_id')))) in @endif"
+        <div class="collapse @if((request()->is('admin/question')||request()->is('admin/question/*') || request()->is('admin/question-type*')) && (!request()->has('question_set_id') && !request()->has('sponsor_id')))) in @endif"
              id="question">
           <ul class="nav">
 
-            <li @if(request()->is('admin/question-type')) class="active" @endif>
+            <li @if(request()->is('admin/question-type*')) class="active" @endif>
               <a href="{{ route('setquestion.index') }}">
                 <span class="sidebar-mini">&nbsp;</span>
                 {{--<i class="material-icons">spellcheck</i>--}}
