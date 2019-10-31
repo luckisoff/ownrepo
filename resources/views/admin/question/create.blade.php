@@ -129,6 +129,26 @@
                 </div>
               </div>
 
+              <div class="col-md-3">
+                <div class="form-group asdh-select">
+                  <label for="difficulty_level">Country</label>
+                  <select name="setquestion_id"
+                          id="setquestion_id"
+                          class="selectpicker"
+                          data-style="select-with-transition"
+                          {{--title="Select Category"--}}
+                          data-live-search="true"
+                          required="true"
+                          data-size="5">
+                    <option value="">Select Country</option>
+                    <option value="nepal" {{ $edit?$question->country=='nepal'?'selected':'':'' }}>Nepal</option>
+                    <option value="india" {{ $edit?$question->country=='india'?'selected':'':'' }}>India</option>
+                    <option value="international" {{ $edit?$question->country=='international'?'selected':'':'' }}>International</option>
+                  </select>
+                  <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
+                </div>
+              </div>
+
             </div>
           @else
             {{-- question_set --}}

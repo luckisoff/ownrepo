@@ -85,4 +85,4 @@ Route::namespace('Api')->group(function() {
 Route::get('questions', 'Api\QuizController@getRandomQuestion');
 Route::get('offline-questions-random', 'ApiController@offline_questions_random');
 Route::get('get-questions', 'ApiController@get_questions');
-
+Route::get('questions', 'QuestionLevelController@questions');
