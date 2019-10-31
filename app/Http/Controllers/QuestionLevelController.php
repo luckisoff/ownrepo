@@ -43,9 +43,10 @@ class QuestionLevelController extends CommonController {
 		return ['status' => true];
 	}
 
-	public function questions() {
+	public function questions($country=null) {
+		
 		$setquestion=Setquestion::with(['question'=>function($q){
-			$q->with(['setquestion','questionType']);
+			$q->with(['setquestion','questionType'])->where('country',null);
 		}])->orderby('updated_at','asc')->get()->pluck('question')->flatten();
         //$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		
@@ -65,6 +66,7 @@ class QuestionLevelController extends CommonController {
 				'set'       =>$question->setquestion['name'],
 				'type'      =>$question->questionType['name'],
 				'point'     =>$question->questionType['point'],
+				'country'	=>$question->country,
 				'options'    => $question->options()->select('name', 'answer')->get()->shuffle()->toArray(),
 			];
 			$return_data['nepali'][]  = [
@@ -73,6 +75,7 @@ class QuestionLevelController extends CommonController {
 				'set'       =>$question->setquestion['name'],
 				'type'      =>$question->questionType['name'],
 				'point'     =>$question->questionType['point'],
+				'country'	=>$question->country,
 				'options'  => $question->options_nepali(),
 			];
 		}

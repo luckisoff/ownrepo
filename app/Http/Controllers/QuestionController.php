@@ -217,17 +217,18 @@ class QuestionController extends AsdhController {
 		Excel::load($request->excel_file, function($reader) {
 			$reader->each(function($sheet) {
 				DB::transaction(function() use ($sheet) {
-					$category = Category::firstOrCreate(['name' => $sheet->category], ['slug' => asdh_str_slug($sheet->category)]);
+					$category=$sheet->category!=''?$sheet->category:'General';
+					$category = Category::firstOrCreate(['name' => $category], ['slug' => asdh_str_slug($category)]);
 
 					// save question to database
 					$question                      = new Question;
-					$question->difficulty_level_id = 1;
+					$question->difficulty_level_id = $sheet->dificulty_level;
 					$question->category_id         = $category->id;
-					$question->name                = $sheet->question;
+					$question->name                = $sheet->question_eng;
 					$question->type                = 'text';
 					$question->online              = 0;
 					
-					$setNtype=$this->getsetid($sheet->set_name,$sheet->question_type);
+					$setNtype=$this->getsetid($sheet->set_name,$sheet->set_type);
 					
 					$question->setquestion_id=$setNtype['set_id'];
 					$question->question_type_id=$setNtype['type_id'];
