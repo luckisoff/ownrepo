@@ -44,9 +44,12 @@ class QuestionLevelController extends CommonController {
 	}
 
 	public function questions() {
+		$setquestion=Setquestion::with(['question'=>function($q){
+			$q->with(['setquestion','questionType'])->limit(15);
+		}])->orderby('updated_at','asc')->get()->pluck('question')->flatten();
         $questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
-        
-		$return_data = $this->format_multi_lang($questions);
+		
+		$return_data = $this->format_multi_lang($setquestion);
 
 		return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	}
