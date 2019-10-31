@@ -45,7 +45,7 @@ class QuestionLevelController extends CommonController {
 
 	public function questions() {
 		$setquestion=Setquestion::with(['question'=>function($q){
-			$q->with(['setquestion','questionType'])->limit(15);
+			$q->with(['setquestion','questionType']);
 		}])->orderby('updated_at','asc')->get()->pluck('question')->flatten();
         $questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		
