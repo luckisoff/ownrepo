@@ -16,7 +16,6 @@
             {{-- <th width="150">Background Image</th> --}}
             <th>Set Name</th>
             <th>Reward Price</th>
-            <th>Question Type</th>
             <th>Set Status</th>
             <th width="140" class="text-center">Actions</th>
           </tr>
@@ -33,8 +32,8 @@
                 @endif
               </td>
               <td>{{$model->price}}</td>
-              <td>{{$model->question_type_id}}</td>
-              <td>{!!$model->status==1?"<span class='badge badge-success'>Active</span>":"<span class='badge badge-danger'>Deactive</span>"!!}</td>
+              
+              <td>{!!$model->status==1?"<span class='label label-success'>Active</span>":"<span class='label label-danger'>Deactive</span>"!!}</td>
               <td class="asdh-edit_and_delete td-actions">
                 <a href="{{ route('setquestion.show', $model) }}"
                    type="button"

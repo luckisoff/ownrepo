@@ -40,9 +40,10 @@
             <th width="40">#</th>
             <th>Question</th>
             @if(!request()->is('admin/question-set*') && !request()->is('admin/setquestion*'))
-              <th>Q. No.</th>
+              
               <th>Category</th>
             @endif
+            <th>Type</th>
             <th width="80">Actions</th>
           </tr>
           </thead>
@@ -52,9 +53,10 @@
               <td>{{ request()->has('page')?((request()->page-1)*30 + $key+1):($key+1) }}</td>
               <td>{{ $model->name }}</td>
               @if(!request()->is('admin/question-set*') && !request()->is('admin/setquestion*'))
-                <td>{{ optional($model->difficulty_level)->level }}</td>
+               
                 <td>{{ optional($model->category)->name }}</td>
               @endif
+              <td>{{ $model->questionType['name']}}</td>
               <td class="asdh-edit_and_delete td-actions">
                 @if(request()->is('admin/question-set*'))
                   <a href="{{ route($routeType.'.edit', [$model, 'question_set_id' => $question_set->id]) }}"

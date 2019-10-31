@@ -47,7 +47,7 @@
         @if(!request()->has('sponsor_id'))
           @if(is_null(request()->question_set_id))
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 {{-- difficulty_level --}}
                 <div class="form-group asdh-select">
                   <label for="difficulty_level">Difficulty Level / Question No.</label>
@@ -68,7 +68,7 @@
                 </div>
                 {{-- ./difficulty_level --}}
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 {{-- categories --}}
                 <div class="form-group asdh-select">
                   <label for="question_category">Category</label>
@@ -90,7 +90,7 @@
                 {{-- ./categories --}}
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group asdh-select">
                   <label for="difficulty_level">Question Set</label>
                   <select name="setquestion_id"
@@ -104,6 +104,25 @@
                     <option value="">Select Question Set / Level</option>
                     @foreach($setquestion as $question)
                       <option value="{{ $question->id }}" {{ $edit?$question->id==$model->setquestion_id?'selected':'':'' }}>{{ $question->name }}</option>
+                    @endforeach
+                  </select>
+                  <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group asdh-select">
+                  <label for="difficulty_level">Question Type</label>
+                  <select name="question_type_id"
+                          id="question_type_id"
+                          class="selectpicker"
+                          data-style="select-with-transition"
+                          data-live-search="true"
+                          required="true"
+                          data-size="5">
+                    <option value="">Select Question Type</option>
+                    @foreach($questiontype as $question)
+                      <option value="{{ $question->id }}" {{ $edit?$question->id==$model->question_type_id?'selected':'':'' }}>{{ $question->name }}</option>
                     @endforeach
                   </select>
                   <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>

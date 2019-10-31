@@ -46,14 +46,7 @@ class LeaderboardController extends CommonController {
 		}
 
 		$week_day = $this->get_week_day();
-
-		$user_id=$request->user_id;
-		
-		try {
-			DB::transaction(function() use ($week_day, $decodedPoint,$user_id) {
-				$leaderboard = Leaderboard::firstOrCreate(
-					['user_id' => $user_id]
-				);
+        $leaderboard = Leaderboard::firstOrCreate(['user_id'=>$request->user_id]);
 				
 				if($decodedPoint > $leaderboard->highest_point) {
 					$leaderboard->highest_point       = $decodedPoint;
@@ -66,13 +59,35 @@ class LeaderboardController extends CommonController {
 				$leaderboard->count += 1;
 				$leaderboard->save();
 				$this->point = $leaderboard->point;
-			});
-		} catch(\Exception $exception) {
-			return response()->json([
-				'status'  => false,
-				'message' => [$exception->getMessage()],
-			]);
-		}
+		
+// 		try {
+// 			DB::transaction(function() use ($week_day, $decodedPoint,$request) {
+// 				$leaderboard = Leaderboard::firstOrCreate(
+// 				    [
+// 				        'user_id'=>$request->user_id,
+// 				        'week_day'=>$week_day
+// 				    ]
+					
+// 				);
+				
+// 				if($decodedPoint > $leaderboard->highest_point) {
+// 					$leaderboard->highest_point       = $decodedPoint;
+// 					$leaderboard->highest_point_count = 1;
+// 					$leaderboard->highest_at          = now();
+// 				} elseif($decodedPoint == $leaderboard->highest_point) {
+// 					$leaderboard->highest_point_count += 1;
+// 				}
+// 				$leaderboard->point += $decodedPoint;
+// 				$leaderboard->count += 1;
+// 				$leaderboard->save();
+// 				$this->point = $leaderboard->point;
+// 			});
+// 		} catch(\Exception $exception) {
+// 			return response()->json([
+// 				'status'  => false,
+// 				'message' => [$exception->getMessage()],
+// 			]);
+// 		}
 		return $this->point;
 		//$authUser = auth()->guard('api')->user();
 		/*if($authUser->id == 12500 || $authUser->id == 38065) {

@@ -11,6 +11,7 @@ use App\Question;
 use App\QuestionSet;
 use App\Sponsor;
 use App\Setquestion;
+use App\QuestionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,7 +30,14 @@ class QuestionController extends AsdhController {
 		// $this->website['models']            = Question::offline()->with('difficulty_level')->latest()->get();
 		$this->website['difficulty_levels'] = DifficultyLevel::select('id', 'level')->orderBy('level')->get();
 		
-
+// 		foreach($this->website['models'] as $question){
+		    
+// 		    if(!$question->question_type_id){
+// 		        $question->question_type_id=1;
+// 		        $question->update();
+// 		    }
+// 		}
+        
 		return view('admin.question.index', $this->website);
 	}
 
@@ -48,7 +56,8 @@ class QuestionController extends AsdhController {
 			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
 		}
 
-		$this->website['setquestion']=Setquestion::select('id','name')->orderBy('name')->get();
+		$this->website['setquestion']=Setquestion::select('id','name')->orderBy('created_at','asc')->get();
+		$this->website['questiontype']=QuestionType::select('id','name')->orderBy('created_at','asc')->get();
 		
 		return view('admin.question.create', $this->website);
 	}
@@ -72,7 +81,7 @@ class QuestionController extends AsdhController {
 		}
 		$question->name = $request->question;
 		$question->type = $request->question_type;
-
+		$question->question_type_id=$request->question_type_id;
 		if(!is_null($request->question_file)) {
 			$question->file = upload_file($request->question_file, $this->prefix . '-' . $request->question_type);
 		}
@@ -111,7 +120,8 @@ class QuestionController extends AsdhController {
 			} else {
 				$this->website['difficulty_levels'] = DifficultyLevel::orderBy('level')->get();
 				$this->website['categories']        = Category::orderBy('name')->get();
-				$this->website['setquestion']	=Setquestion::orderBy('name')->get();
+				$this->website['setquestion']	=Setquestion::all();
+				$this->website['questiontype']    =QuestionType::all();
 			}
 		} else {
 			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
@@ -140,7 +150,7 @@ class QuestionController extends AsdhController {
 			$question->file = null;
 		}
 		$question->type = $request->question_type;
-
+        $question->question_type_id=$request->question_type_id;
 		if(!is_null($request->question_file)) {
 			$question->delete_file();
 			$question->file = upload_file($request->question_file, $this->prefix . '-' . $request->question_type);
@@ -179,9 +189,29 @@ class QuestionController extends AsdhController {
 		return view('admin.question.excel-upload', $this->website);
 	}
 
-	public function getsetid($name){
-		$set=Setquestion::firstOrCreate(['name'=>$name,'status'=>0]);
-		return $set->id;
+	public function getsetid($name,$qtype){
+		$set=Setquestion::where('name',$name)->first();
+		
+		$questiontype=\App\QuestionType::where('name',$qtype)->first();
+		
+		if(!$questiontype){
+		    $questiontype=new \App\QuestionType();
+		    $questiontype->name=$qtype;
+		    $questiontype->point=1;
+		    $questiontype->save();
+		}
+		
+		if($set){
+		    return array('set_id'=>$set->id,'type_id'=>$questiontype->id);
+		}
+		
+		$set=new Setquestion();
+		$set->name=$name;
+		$set->question_type_id=$questiontype->id;
+		$set->status=1;
+		$set->save();
+		return array('set_id'=>$set->id,'type_id'=>$questiontype->id);
+		
 	}
 	public function excelUploadStore(Request $request) {
 		Excel::load($request->excel_file, function($reader) {
@@ -196,7 +226,13 @@ class QuestionController extends AsdhController {
 					$question->name                = $sheet->question;
 					$question->type                = 'text';
 					$question->online              = 0;
-					$question->setquestion_id=$this->getsetid($sheet->set_name);
+					
+					$setNtype=$this->getsetid($sheet->set_name,$sheet->question_type);
+					
+					$question->setquestion_id=$setNtype['set_id'];
+					$question->question_type_id=$setNtype['type_id'];
+					
+					$this->excel=$question;
 					$question->save();
 
 					//convert question to nepali and save to database
@@ -205,7 +241,7 @@ class QuestionController extends AsdhController {
 						'name'        => $sheet->question_nep,
 					]);
 
-					// save options to database
+					//save options to database
 					foreach(range(1, 4) as $item) {
 						$attribute       = 'option_' . $item;
 						$attributeNepali = 'option_' . $item . '_nep';
@@ -224,6 +260,7 @@ class QuestionController extends AsdhController {
 				});
 			});
 		});
+		
 		return back()->with('success_message', 'Question form file successfully uploaded');
 	}
 }

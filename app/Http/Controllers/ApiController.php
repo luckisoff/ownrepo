@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Setquestion;
 class ApiController extends CommonController {
 	public function __construct() {
 		parent::__construct();
@@ -389,6 +389,41 @@ class ApiController extends CommonController {
 		$return_data = $this->format_according_to_multi_language($offline_questions);
 
 		return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
+	}
+	
+	public function get_questions() {
+        $questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
+        //return $questions;
+		//$return_data = $this->format_according_to_multi_language($offline_questions);
+		$return_data = $this->format_multi_lang($questions);
+
+		return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
+	}
+	
+	public function format_multi_lang($questions) {
+	    
+		$return_data = [];
+		foreach($questions as $question) {
+		    
+			$return_data['english'][] = [
+				'questionId' => $question->id,
+				'question'   => $question->name,
+				'set'       =>$question->setquestion['name'],
+				'type'      =>$question->questionType['name'],
+				'point'     =>$question->questionType['point'],
+				'options'    => $question->options()->select('name', 'answer')->get()->shuffle()->toArray(),
+			];
+			$return_data['nepali'][]  = [
+				'id'       => $question->id,
+				'question' => $question->nepali()->name,
+				'set'       =>$question->setquestion['name'],
+				'type'      =>$question->questionType['name'],
+				'point'     =>$question->questionType['point'],
+				'options'  => $question->options_nepali(),
+			];
+		}
+
+		return $return_data;
 	}
 
 	// get random questions for offline from category
