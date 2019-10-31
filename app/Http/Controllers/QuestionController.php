@@ -233,7 +233,7 @@ class QuestionController extends AsdhController {
 					$question->setquestion_id=$setNtype['set_id'];
 					$question->question_type_id=$setNtype['type_id'];
 					
-					$this->excel=$question;
+			
 					$question->save();
 
 					//convert question to nepali and save to database
@@ -250,7 +250,7 @@ class QuestionController extends AsdhController {
 						$option = Option::create([
 							'question_id' => $question->id,
 							'name'        => $sheet->$attribute,
-							'answer'      => $item == 1,
+							'answer'      => $sheet->$attribute==$sheet->answer_eng?1:0,
 						]);
 
 						$option->conversions()->create([

@@ -47,7 +47,7 @@ class QuestionLevelController extends CommonController {
 		
 		$setquestion=Setquestion::with(['question'=>function($q){
 			$q->with(['setquestion','questionType']);
-		}])->orderby('updated_at','asc')->get()->pluck('question')->flatten();
+		}])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->flatten();
         //$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		
 		$return_data = $this->format_multi_lang($setquestion);
@@ -58,6 +58,7 @@ class QuestionLevelController extends CommonController {
 	public function format_multi_lang($questions) {
 	    
 		$return_data = [];
+		$i=0;
 		foreach($questions as $question) {
 		    
 			$return_data['english'][] = [
@@ -70,6 +71,7 @@ class QuestionLevelController extends CommonController {
 				'options'    => $question->options()->select('name', 'answer')->get()->shuffle()->toArray(),
 			];
 			$return_data['nepali'][]  = [
+				
 				'id'       => $question->id,
 				'question' => $question->nepali()->name,
 				'set'       =>$question->setquestion['name'],
