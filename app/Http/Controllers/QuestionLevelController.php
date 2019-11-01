@@ -43,16 +43,17 @@ class QuestionLevelController extends CommonController {
 		return ['status' => true];
 	}
 
-	public function questions($country=null) {
+	public function questions($country=1) {
 		
 		$setquestion=Setquestion::with(['question'=>function($q){
 			$q->with(['setquestion','questionType']);
 		}])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->random();
-        //$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
+		//$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
+		
 		return Setquestion::with(['question'=>function($q){
 			$q->with('options');
-		}])->whereHas('question')->get();
-		
+		}])->whereHas('question')->where('question_type_id',$country)->random()->first();
+
 		$return_data = $this->format_multi_lang($setquestion);
 
 		return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
