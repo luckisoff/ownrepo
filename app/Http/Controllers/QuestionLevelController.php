@@ -59,17 +59,37 @@ class QuestionLevelController extends CommonController {
 		return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	}
 
-	public function test($country=1) {
+	public function test($user_id='',$level=1) {
 		
 		// $setquestion=Setquestion::with(['question'=>function($q){
 		// 	$q->with(['setquestion','questionType']);
 		// }])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->random();
 		//$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
-		$setWithQuestion=Setquestion::where('question_type_id',$country)->whereHas('question')->with(['question'=>function($q){
-			$q->with('options');
-		}])->first();
+		$levelPlayed=Level::where('user_id',$user_id)->select('setquestion_id')->get();
+
+		
+		
+		if($levelPlayed !=''){
+			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
+				$q->with('options');
+			}])->get();
+			foreach($setWithQuestion as $setquestion){
+				if(in_array($setquestion->id,$levelPlayed)){
+					$setWithQuestion=$setquestion;
+				}
+			}
+		}else{
+			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
+				$q->with('options');
+			}])->first();
+		}
 		
 
+		Level::create([
+			'user_id'=>$user_id,
+			'setquestion_id'=>$setWithQuestion->id
+		]);
+		return $setWithQuestion;
 		// $return_data = $this->format_multi_lang($setquestion);
 
 		// return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);

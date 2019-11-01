@@ -15,4 +15,8 @@ class Setquestion extends Model
     public function questiontype(){
         return $this->belongsTo(QuestionType::class);
     }
+
+    public function level(){
+        return $this->hasMany(Level::class);
+    }
 }

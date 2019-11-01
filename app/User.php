@@ -88,4 +88,8 @@ class User extends Authenticatable {
 	public function hasOnlyRole($role_name) {
 		return (count($this->roles) === 1 && $this->roles()->first()->name == $role_name);
 	}
+
+	public function level(){
+		return $this->hasMany(Level::class);
+	}
 }
