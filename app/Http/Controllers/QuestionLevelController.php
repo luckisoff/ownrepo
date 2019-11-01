@@ -84,10 +84,6 @@ class QuestionLevelController extends CommonController {
 		}
 		
 		//return $setWithQuestion->id;
-		Level::create([
-			'user_id'=>$user_id,
-			'setquestion_id'=>$setWithQuestion->id
-		]);
 
 		return $setWithQuestion;
 		// $return_data = $this->format_multi_lang($setquestion);
@@ -95,6 +91,17 @@ class QuestionLevelController extends CommonController {
 		// return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	}
 	
+
+	public function setLevelPlayed($user_id,$set_id){
+		if(empty($user_id)||empty($set_id)){
+			return "error";
+		}
+		$level=new Level();
+		$level->user_id=$user_id;
+		$level->setquestion_id=$set_id;
+		$level->save();
+		return ["status"=>true];
+	}
 	public function format_multi_lang($questions) {
 	    
 		$return_data = [];

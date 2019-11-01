@@ -85,5 +85,6 @@ Route::namespace('Api')->group(function() {
 Route::get('questions', 'Api\QuizController@getRandomQuestion');
 Route::get('offline-questions-random', 'ApiController@offline_questions_random');
 Route::get('get-questions/{country?}', 'QuestionLevelController@questions');
-Route::get('get-test/{user_id?}/{level?}', 'QuestionLevelController@test');
+Route::get('get-question-level/{user_id?}/{level?}', 'QuestionLevelController@test');
+Route::get('set-played-level/{user_id}/{setid}', 'QuestionLevelController@setLevelPlayed');
 
