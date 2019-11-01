@@ -70,7 +70,9 @@ class QuestionLevelController extends CommonController {
 		
 		if(!empty($levelPlayed)){
 			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
-				$q->with('options');
+				$q->with(['options'=>function($q){
+					$q->select('name');
+				}]);
 			}])->get();
 			foreach($setWithQuestion as $setquestion){
 				if(in_array($setquestion->id,$levelPlayed)){
@@ -84,11 +86,10 @@ class QuestionLevelController extends CommonController {
 		}
 		
 		//return $setWithQuestion->id;
+		
+		 $return_data = $this->format_multi_lang($setWithQuestion->question);
 
-		return $setWithQuestion;
-		// $return_data = $this->format_multi_lang($setquestion);
-
-		// return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
+		 return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	}
 	
 
