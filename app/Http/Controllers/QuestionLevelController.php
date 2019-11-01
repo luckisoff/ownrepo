@@ -83,11 +83,12 @@ class QuestionLevelController extends CommonController {
 			}])->first();
 		}
 		
-		
+		return $setWithQuestion->id;
 		Level::create([
 			'user_id'=>$user_id,
 			'setquestion_id'=>$setWithQuestion->id
 		]);
+
 		return $setWithQuestion;
 		// $return_data = $this->format_multi_lang($setquestion);
 
