@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
 use App\Setquestion;
+use App\Level;
 class QuestionLevelController extends CommonController {
 	public function __construct() {
 		parent::__construct();
