@@ -66,9 +66,9 @@ class QuestionLevelController extends CommonController {
 		// }])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->random();
 		//$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		
-		return Setquestion::with(['question'=>function($q){
+		return Setquestion::where('question_type_id',$country)->whereHas('question')->with(['question'=>function($q){
 			$q->with('options');
-		}])->whereHas('question')->where('question_type_id',$country)->random();
+		}])->orderBy(rand())->get();
 
 		// $return_data = $this->format_multi_lang($setquestion);
 
