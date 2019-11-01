@@ -18,7 +18,7 @@ class SetQuestionController extends AsdhController
     
     public function index() {
 		
-		$this->website['models'] = Setquestion::withCount('question')->latest();
+		$this->website['models'] = Setquestion::withCount('question')->get();
 		return view('admin.setquestion.index', $this->website);
 	}
 
