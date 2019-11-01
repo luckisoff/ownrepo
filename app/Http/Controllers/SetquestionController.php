@@ -18,7 +18,7 @@ class SetQuestionController extends AsdhController
     
     public function index() {
 		
-		$this->website['models'] = Setquestion::withCount('question')->latest()->paginate($this->default_pagination_limit);
+		$this->website['models'] = Setquestion::withCount('question')->latest();
 		return view('admin.setquestion.index', $this->website);
 	}
 
