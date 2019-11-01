@@ -67,10 +67,8 @@ class QuestionLevelController extends CommonController {
 		// }])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->random();
 		//$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
-
-		return $levelPlayed;
 		
-		if($levelPlayed !=''){
+		if(!empty($levelPlayed)){
 			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
 				$q->with('options');
 			}])->get();
@@ -85,7 +83,7 @@ class QuestionLevelController extends CommonController {
 			}])->first();
 		}
 		
-
+		return $setWithQuestion;
 		Level::create([
 			'user_id'=>$user_id,
 			'setquestion_id'=>$setWithQuestion->id
