@@ -68,7 +68,7 @@ class QuestionLevelController extends CommonController {
 		
 		return Setquestion::where('question_type_id',$country)->whereHas('question')->with(['question'=>function($q){
 			$q->with('options');
-		}])->orderBy(rand())->get();
+		}])->get();
 
 		// $return_data = $this->format_multi_lang($setquestion);
 
