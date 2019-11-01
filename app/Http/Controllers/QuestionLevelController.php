@@ -95,7 +95,7 @@ class QuestionLevelController extends CommonController {
 
 	public function setLevelPlayed($user_id,$set_id){
 		if(empty($user_id)||empty($set_id)){
-			return "error";
+			return ["status"=>false];
 		}
 		$level=new Level();
 		$level->user_id=$user_id;
