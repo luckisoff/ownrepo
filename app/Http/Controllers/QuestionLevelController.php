@@ -73,7 +73,7 @@ class QuestionLevelController extends CommonController {
 				$q->with(['options'=>function($q){
 					$q->select('name');
 				}]);
-			}])->get();
+			}])->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){
 				if(in_array($setquestion->id,$levelPlayed)){
 					$setWithQuestion=$setquestion;
@@ -82,7 +82,7 @@ class QuestionLevelController extends CommonController {
 		}else{
 			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
 				$q->with('options');
-			}])->first();
+			}])->inRandomOrder()->first();
 		}
 		
 		//return $setWithQuestion->id;
