@@ -87,4 +87,5 @@ Route::get('offline-questions-random', 'ApiController@offline_questions_random')
 Route::get('get-questions/{country?}', 'QuestionLevelController@questions');
 Route::get('get-question-level/{user_id?}/{level?}', 'QuestionLevelController@questions');
 Route::get('set-played-level/{user_id}/{setid}', 'QuestionLevelController@setLevelPlayed');
+Route::post('set-played-level', 'QuestionLevelController@setLevel');
 

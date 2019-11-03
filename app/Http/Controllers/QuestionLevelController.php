@@ -91,6 +91,24 @@ class QuestionLevelController extends CommonController {
 		$level->save();
 		return ["status"=>true];
 	}
+
+	public function setLevel(Request $request){
+		if(empty($request->user_id) || empty($request->set_id)){
+			return ["status"=>false];
+		}
+
+		$level=Level::where('user_id',$request->user_id)->where('setquestion_id',$request->set_id)->first();
+		if(!empty($level)){
+			return ["status"=>false];
+		}
+		$level=new Level();
+		$level->user_id=$request->user_id;
+		$level->setquestion_id=$request->set_id;
+		$level->save();
+		return ["status"=>true];
+	}
+
+
 	public function format_multi_lang($questions) {
 	    
 		$return_data = [];
