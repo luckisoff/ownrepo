@@ -14,7 +14,7 @@
           <input type="file"
                  id="{{ isset($image_name_field)?$image_name_field:'image' }}"
                  name="{{ isset($image_name_field)?$image_name_field:'image' }}"
-                 accept="image/*"/>
+                 accept="image/*" required/>
       </span>
       <a href="#"
          class="btn btn-danger btn-round fileinput-exists asdh-btn-small"
