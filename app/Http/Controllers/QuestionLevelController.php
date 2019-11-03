@@ -75,7 +75,7 @@ class QuestionLevelController extends CommonController {
 				}]);
 			}])->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){
-				if(in_array($setquestion->id,$levelPlayed)){
+				if(!in_array($setquestion->id,$levelPlayed)){
 					$setWithQuestion=$setquestion;
 				}
 			}
