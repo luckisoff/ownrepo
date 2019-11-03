@@ -79,18 +79,7 @@ class QuestionLevelController extends CommonController {
 
 		 return response()->json(['status' => true, 'code' => 200, 'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
 	}
-	
 
-	public function setLevelPlayed($user_id,$set_id){
-		if(empty($user_id)||empty($set_id)){
-			return ["status"=>false];
-		}
-		$level=new Level();
-		$level->user_id=$user_id;
-		$level->setquestion_id=$set_id;
-		$level->save();
-		return ["status"=>true];
-	}
 
 	public function setLevel(Request $request){
 		if(empty($request->user_id) || empty($request->set_id)){
