@@ -62,30 +62,18 @@ class QuestionLevelController extends CommonController {
 
 	public function test($user_id='',$level=1) {
 		
-		// $setquestion=Setquestion::with(['question'=>function($q){
-		// 	$q->with(['setquestion','questionType']);
-		// }])->orderby('updated_at','asc')->limit(1)->get()->pluck('question')->random();
-		//$questions=Question::with(['setquestion','questionType'])->orderBy('created_at','desc')->get()->take(15);
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
 		
 		if(!empty($levelPlayed)){
-			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
-				$q->with(['options'=>function($q){
-					$q->select('name');
-				}]);
-			}])->inRandomOrder()->get();
+			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with('question')->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){
 				if(!in_array($setquestion->id,$levelPlayed)){
 					$setWithQuestion=$setquestion;
 				}
 			}
 		}else{
-			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with(['question'=>function($q){
-				$q->with('options');
-			}])->inRandomOrder()->first();
+			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with('question')->inRandomOrder()->first();
 		}
-		
-		//return $setWithQuestion->id;
 		
 		 $return_data = $this->format_multi_lang($setWithQuestion->question);
 
