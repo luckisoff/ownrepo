@@ -204,7 +204,7 @@
               <a href="{{ route('sponsor.index') }}">
                 <span class="sidebar-mini">&nbsp;</span>
                 {{--<i class="material-icons">spellcheck</i>--}}
-                <span class="sidebar-normal">All Time</span>
+                <span class="sidebar-normal">Sponsors</span>
               </a>
             </li>
 
