@@ -31,7 +31,7 @@
               <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->title}} ({{ $model->questions_count }})</a></td>
               <td>{{$model->counter}}</td>
               <td>{{$model->start_time->format('M d Y, h:i A')}}</td>
-              <td>{{$model->sponsor->name}}</td>
+              <td>{{!is_null($model->sponsor_id)?$model->sponsor->name:'No Sponsor'}}</td>
               <td>{{$model->end_time->format('M d Y, h:i A')}}</td>
               <td class="asdh-edit_and_delete td-actions">
                 <a href="{{ route('question.create',['question-set-id' => $model->id]) }}"
