@@ -51,7 +51,7 @@
                 </a>
               </td>
               <td class="asdh-edit_and_delete td-actions">
-                <a href="{{ route('question.create', ['sponsor_id'=>$model->id]) }}"
+                {{-- <a href="{{ route('question.create', ['sponsor_id'=>$model->id]) }}"
                    type="button"
                    class="btn btn-warning asdh-add-questions"
                    title="Add questions">
@@ -62,7 +62,7 @@
                    class="btn btn-info asdh-add-questions"
                    title="View Questions">
                   <i class="material-icons">remove_red_eye</i>
-                </a>
+                </a> --}}
                 @include('extras.edit_delete', ['modal'=>$model, 'message'=>'You will not be able to recover your data in the future.'])
               </td>
             </tr>

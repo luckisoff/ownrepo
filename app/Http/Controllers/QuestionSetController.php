@@ -86,7 +86,7 @@ class QuestionSetController extends AsdhController {
 	public function edit(QuestionSet $question_set) {
 		$this->website['edit']  = true;
 		$this->website['model'] = $question_set;
-
+		$this->website['sponsors']=Sponsor::orderBy('name','asc')->get();
 		return view('admin.question-set.create', $this->website);
 	}
 

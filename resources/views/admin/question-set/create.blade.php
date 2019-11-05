@@ -73,7 +73,7 @@
                     </label>
                     <input type="text"
                            class="form-control datetimepicker"
-                           value="{{ $edit?$model->timer->format('m/d/Y h:i A'):old('timer') }}"
+                           value="{{ $edit?(isset($model->counter)?\Carbon\Carbon::parse($model->counter)->format('m/d/Y h:i A'):''):old('counter') }}"
                            name="timer"
                            required
                            placeholder="Enter timer">
@@ -89,7 +89,7 @@
                   </label>
                   <input type="text"
                          class="form-control datetimepicker"
-                         value="{{ $edit?$model->start_time->format('m/d/Y h:i A'):old('start_time') }}"
+                         value="{{ $edit?\Carbon\Carbon::parse($model->start_time)->format('m/d/Y h:i A'):old('start_time') }}"
                          name="start_time"
                          required
                          placeholder="Enter start time">
@@ -101,7 +101,7 @@
                   </label>
                   <input type="text"
                          class="form-control datetimepicker"
-                         value="{{ $edit?$model->end_time->format('m/d/Y h:i A'):old('end_time') }}"
+                         value="{{ $edit?\Carbon\Carbon::parse($model->end_time)->format('m/d/Y h:i A'):old('end_time') }}"
                          name="end_time"
                          placeholder="Enter end time">
                 </div>
@@ -126,7 +126,7 @@
                     </label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $edit?$model->prize->format('m/d/Y h:i A'):old('prize') }}"
+                           value="{{ $edit?($model->prize?$model->prize:''):old('prize') }}"
                            name="prize"
                            placeholder="Enter prize if no sponsors">
                   </div>
