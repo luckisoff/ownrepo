@@ -194,7 +194,7 @@
       <li @if(request()->is('admin/sponsor*') || request()->has('sponsor_id') || request()->is('admin/question-set*') || request()->has('question_set_id')) class="active" @endif>
         <a data-toggle="collapse" href="#sponsor">
           <i class="material-icons">nfc</i>
-          <p>{{ ucfirst('sponsor') }}
+          <p>{{ ucfirst('Live Quizzes') }}
             <b class="caret"></b>
           </p>
         </a>
