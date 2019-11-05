@@ -44,20 +44,18 @@ class QuestionController extends AsdhController {
 	public function create() {
 		$this->website['edit'] = false;
 		// if create question is clicked from question set index page
-		if(!request()->has('sponsor_id')) {
-			if(request()->has('question_set_id')) {
+		
+			if($_GET['question-set-id']) {
 				$this->website['current_question_set'] = QuestionSet::find(request()->question_set_id);
 				$this->website['question_sets']        = QuestionSet::get();
 			} else {
 				$this->website['difficulty_levels'] = DifficultyLevel::orderBy('level')->get();
 				$this->website['categories']        = Category::orderBy('name')->get();
+				$this->website['setquestion']=Setquestion::select('id','name')->orderBy('created_at','asc')->get();
+				$this->website['questiontype']=QuestionType::select('id','name')->orderBy('created_at','asc')->get();
 			}
-		} else {
-			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
-		}
-
-		$this->website['setquestion']=Setquestion::select('id','name')->orderBy('created_at','asc')->get();
-		$this->website['questiontype']=QuestionType::select('id','name')->orderBy('created_at','asc')->get();
+		
+		
 		
 		return view('admin.question.create', $this->website);
 	}
@@ -112,9 +110,8 @@ class QuestionController extends AsdhController {
 		$this->website['edit']  = true;
 		$this->website['model'] = $question;
 
-		if(!request()->has('sponsor_id')) {
 			// if create question is clicked from question set index page
-			if(request()->has('question_set_id')) {
+			if(!is_null($_GET['question-set-id'])) {
 				$this->website['question_sets']        = QuestionSet::get();
 				$this->website['current_question_set'] = $question;
 			} else {
@@ -123,9 +120,7 @@ class QuestionController extends AsdhController {
 				$this->website['setquestion']	=Setquestion::all();
 				$this->website['questiontype']    =QuestionType::all();
 			}
-		} else {
-			$this->website['sponsors'] = Sponsor::select('id', 'name')->get();
-		}
+		
 
 		return view('admin.question.create', $this->website);
 	}

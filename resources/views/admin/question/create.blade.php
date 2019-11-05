@@ -14,8 +14,8 @@
 
       <div class="card-header card-header-text" data-background-color="green">
         <h4 class="card-title">
-          @if(request()->has('question_set_id'))
-            Add new question to <b>{{ $current_question_set->title }}</b>
+          @if(!is_null($_GET['question-set-id']))
+            Add new question to <b>{{ $question_sets->find($_GET['question-set-id'])->title }}</b>
           @elseif(request()->has('setquestion_id'))
             Add new question to <b>{{ $setquestion->name }}</b>
           @else
@@ -23,17 +23,12 @@
           @endif
         </h4>
       </div>
-      @if(request()->has('sponsor_id'))
-        <a href="{{ route('sponsor.show', request()->sponsor_id) }}"
-           class="btn btn-success btn-round btn-xs create-new">
-          <i class="material-icons">remove_red_eye</i> View all questions of
-          <b>{{ $sponsors->find(request()->sponsor_id)->name }}</b>
-        </a>
-      @elseif(request()->has('question_set_id'))
+      
+      @if(!is_null($_GET['question-set-id']))
         <a href="{{ route('question-set.show', request()->question_set_id) }}"
            class="btn btn-success btn-round btn-xs create-new">
           <i class="material-icons">remove_red_eye</i> View all questions of
-          <b>{{ $question_sets->find(request()->question_set_id)->title }}</b>
+          <b>{{ $question_sets->find($_GET['question-set-id'])->title }}</b>
         </a>
         @elseif(request()->has('setquestion_id'))
         <a href="{{ route('question.show', request()->setquestion_id) }}"
@@ -44,8 +39,8 @@
       @endif
 
       <div class="card-content">
-        @if(!request()->has('sponsor_id'))
-          @if(is_null(request()->question_set_id))
+        
+          @if(is_null($_GET['question-set-id']))
             <div class="row">
               <div class="col-md-3">
                 {{-- difficulty_level --}}
@@ -133,7 +128,7 @@
           @else
             {{-- question_set --}}
             <div class="form-group asdh-select">
-              <label for="question_set">Question Set</label>
+              <label for="question_set">Live Question Set</label>
               <select name="question_set_id"
                       id="question_set"
                       class="selectpicker"
@@ -151,29 +146,7 @@
             </div>
             {{-- ./question_set --}}
           @endif
-        @else
-          {{-- sponsors --}}
-         
-          <div class="form-group asdh-select">
-            <label for="sponsor_id">Sponsor</label>
-            <select name="sponsor_id"
-                    id="sponsor_id"
-                    class="selectpicker {{ $errors->has('sponsor_id')?'remove-error-message':'' }}"
-                    data-style="select-with-transition"
-                    {{--title="Select Category"--}}
-                    data-live-search="true"
-                    data-size="5">
-              <option value="">Select Sponsor</option>
-              @foreach($sponsors as $sponsor)
-                <option value="{{ $sponsor->id }}" {{ $edit?$sponsor->id==$model->sponsor_id?'selected':'':$sponsor->id==request()->query('sponsor_id')?'selected':'' }}>
-                  {{ $sponsor->name }}
-                </option>
-              @endforeach
-            </select>
-            <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
-          </div>
-          {{-- ./sponsors --}}
-        @endif
+       
 
          
         {{--question--}}

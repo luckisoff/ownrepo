@@ -5,7 +5,7 @@
 @section('content')
 
   <div class="card">
-    @include('extras.index_header',['custom_name'=>'Quiz Set'])
+    @include('extras.index_header',['custom_name'=>'Live Quiz'])
 
     <div class="card-content">
       <div class="table-responsive">
@@ -15,7 +15,9 @@
             <th width="40">#</th>
             {{-- <th width="150">Background Image</th> --}}
             <th>Title</th>
+            <th>Timer</th>
             <th>Start time</th>
+            <th>Sponsor</th>
             <th>End time</th>
             <th width="140" class="text-center">Actions</th>
           </tr>
@@ -27,10 +29,12 @@
               {{-- <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
                --}}
               <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->title}} ({{ $model->questions_count }})</a></td>
+              <td>{{$model->counter}}</td>
               <td>{{$model->start_time->format('M d Y, h:i A')}}</td>
+              <td>{{$model->sponsor->name}}</td>
               <td>{{$model->end_time->format('M d Y, h:i A')}}</td>
               <td class="asdh-edit_and_delete td-actions">
-                <a href="{{ route('question.create',['setquestion_id' => $model->id]) }}"
+                <a href="{{ route('question.create',['question-set-id' => $model->id]) }}"
                    type="button"
                    class="btn btn-warning"
                    title="Add question">

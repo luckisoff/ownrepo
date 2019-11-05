@@ -52,22 +52,33 @@
                      id="name"
                      name="name"
                      required="true"
+                     placeholder="Enter Sponsors Name"
                      value="{{$edit?$model->name:old('name')}}"/>
             </div>
             {{--./name--}}
-
-            {{--facebook_id--}}
             <div class="form-group">
-              <label for="facebook-id">Facebook ID
-                <small>*</small>
-              </label>
-              <input type="text"
-                     class="form-control"
-                     id="facebook-id"
-                     name="facebook_id"
-                     required="true"
-                     value="{{$edit?$model->facebook_id:old('facebook_id')}}"/>
-            </div>
+                <label for="Prize">Prize
+                  <small>*</small>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="prize"
+                       name="prize"
+                       required="true"
+                       placeholder="Enter Sponsors Prize"
+                       value="{{$edit?$model->prize:old('prize')}}"/>
+              </div>
+            {{--facebook_id--}}
+              <div class="form-group">
+                <label for="facebook-id">Facebook ID
+                </label>
+                <input type="text"
+                      class="form-control"
+                      id="facebook-id"
+                      name="facebook_id"
+                      placeholder="Optional"
+                      value="{{$edit?$model->facebook_id:old('facebook_id')}}"/>
+              </div>
             {{--./facebook_id--}}
 
             {{--submit--}}

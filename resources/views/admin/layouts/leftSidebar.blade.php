@@ -212,7 +212,7 @@
               <a href="{{ route('question-set.index') }}">
                 <span class="sidebar-mini">&nbsp;</span>
                 {{--<i class="material-icons">spellcheck</i>--}}
-                <span class="sidebar-normal">Hourly Quiz</span>
+                <span class="sidebar-normal">Live Quiz</span>
               </a>
             </li>
           </ul>

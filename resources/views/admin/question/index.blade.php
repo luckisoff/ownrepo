@@ -59,7 +59,7 @@
               <td>{{ $model->questionType['name']}}</td>
               <td class="asdh-edit_and_delete td-actions">
                 @if(request()->is('admin/question-set*'))
-                  <a href="{{ route($routeType.'.edit', [$model, 'question_set_id' => $question_set->id]) }}"
+                  <a href="{{ route($routeType.'.edit', [$model, 'question-set-id' => $question_set->id]) }}"
                      type="button"
                      class="btn btn-success"
                      title="Edit">

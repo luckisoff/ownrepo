@@ -12,4 +12,8 @@ class QuestionSet extends Model {
 	public function collections() {
 		return $this->belongsToMany(QuestionSetCollection::class, 'collection_question_sets');
 	}
+
+	public function sponsor(){
+		return $this->belongsTo(Sponsor::class);
+	}
 }

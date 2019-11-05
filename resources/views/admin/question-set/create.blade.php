@@ -14,7 +14,7 @@
     <div class="card">
 
       <div class="card-header card-header-text" data-background-color="green">
-        <h4 class="card-title">{{ $edit?'Edit':'Add a New ' }} <b>Quiz Set</b></h4>
+        <h4 class="card-title">{{ $edit?'Edit':'Add a New ' }} <b>Live Quiz</b></h4>
       </div>
 
       <div class="card-content">
@@ -39,7 +39,8 @@
                      id="title"
                      name="title"
                      required="true"
-                     value="{{$edit?$model->title:old('title')}}"/>
+                     value="{{$edit?$model->title:old('title')}}"
+                     placeholder="Enter live quize title"/>
             </div>
             {{--./title--}}
 
@@ -54,15 +55,31 @@
             {{--./icon--}}
 
             {{--color--}}
-            <div class="form-group">
+            {{-- <div class="form-group">
               <label for="color">{{ ucwords('pick color') }}</label>
               <input type="color"
                      class="form-control"
                      id="color"
                      name="color"
                      value="{{$edit?$model->color:old('color')??'#ffffff'}}"/>
-            </div>
+            </div> --}}
             {{--./color--}}
+
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="label-control">Timer
+                      <span>*</span>
+                    </label>
+                    <input type="text"
+                           class="form-control datetimepicker"
+                           value="{{ $edit?$model->timer->format('m/d/Y h:i A'):old('timer') }}"
+                           name="timer"
+                           required
+                           placeholder="Enter timer">
+                  </div>
+                </div>
+              </div>
 
             <div class="row">
               <div class="col-md-6">
@@ -74,21 +91,46 @@
                          class="form-control datetimepicker"
                          value="{{ $edit?$model->start_time->format('m/d/Y h:i A'):old('start_time') }}"
                          name="start_time"
-                         required>
+                         required
+                         placeholder="Enter start time">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="label-control">End time
-                    <span>*</span>
                   </label>
                   <input type="text"
                          class="form-control datetimepicker"
                          value="{{ $edit?$model->end_time->format('m/d/Y h:i A'):old('end_time') }}"
                          name="end_time"
-                         required>
+                         placeholder="Enter end time">
                 </div>
               </div>
+              @if(count($sponsors)>0)
+              <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="label-control">Sponsor Name
+                    </label>
+                    <select name="sponsor" id="sponsor" class="form-control">
+                      <option value="">Choose Sponser</option>
+                      @foreach($sponsors as $sponsor)
+                        <option value="{{$sponsor->id}}">{{$sponsor->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              @endif
+              <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="label-control">Prize
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           value="{{ $edit?$model->prize->format('m/d/Y h:i A'):old('prize') }}"
+                           name="prize"
+                           placeholder="Enter prize if no sponsors">
+                  </div>
+                </div>
             </div>
 
             {{--submit--}}

@@ -6,7 +6,7 @@ use App\Http\Requests\QuestionSetRequest;
 use App\QuestionSet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Sponsor;
 class QuestionSetController extends AsdhController {
 	private $prefix = 'question-set';
 
@@ -23,7 +23,7 @@ class QuestionSetController extends AsdhController {
 
 	public function create() {
 		$this->website['edit'] = false;
-
+		$this->website['sponsors']=Sponsor::orderBy('name','asc')->get();
 		return view('admin.question-set.create', $this->website);
 	}
 
@@ -62,12 +62,14 @@ class QuestionSetController extends AsdhController {
 
 		return QuestionSet::create([
 			'title'          => $request->title,
-			'sponser_status' => 0,
+			'sponser_status' => 1,
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
+			'counter'		 =>Carbon::parse($request->counter),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
+			'sponsor_id'	=>$request->id,
 		])
 			? back()->with('success_message', 'QuestionSet successfully added.')
 			: back()->with('failure_message', 'QuestionSet could not be added. Please try again later.');

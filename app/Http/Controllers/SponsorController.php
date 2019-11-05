@@ -22,7 +22,6 @@ class SponsorController extends AsdhController {
 
 	public function create() {
 		$this->website['edit'] = false;
-
 		return view("{$this->viewPath}.create", $this->website);
 	}
 
@@ -47,7 +46,8 @@ class SponsorController extends AsdhController {
 			'image'            => $image_name,
 			'background_image' => $background_image_name,
 			'ad_image'         => $ad_image_name,
-			'facebook_id'      => $request->facebook_id,
+			'prize'			   =>$request->prize,
+			'facebook_id'      => $request->facebook_id?$request->facebook_id:'#',
 		])
 			? redirect()->route($this->website['routeType'] . '.index')->with('success_message', 'Sponsor successfully added.')
 			: redirect()->route($this->website['routeType'] . '.index')->with('failure_message', 'Sponsor could not be added. Please try again later.');
