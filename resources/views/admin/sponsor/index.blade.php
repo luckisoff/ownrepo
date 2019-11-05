@@ -47,7 +47,7 @@
               <td>{{is_numeric($model->prize)?number_format($model->prize,0):$model->prize}}</td>
               <td>
                 <a href="{{ route('sponsor.show', $model) }}">
-                  {{$model->name}} ({{ $model->questions_count }} {{ str_plural('question', $model->questions_count) }})
+                  {{$model->name}}
                 </a>
               </td>
               <td class="asdh-edit_and_delete td-actions">
