@@ -217,18 +217,23 @@ class QuestionController extends AsdhController {
 
 					// save question to database
 					$question                      = new Question;
-					$question->difficulty_level_id = $sheet->dificulty_level;
-					$question->category_id         = $category->id;
+					$question->difficulty_level_id = $sheet->dificulty_level?$sheet->dificulty_level:null;
+					$question->category_id         = $category->id?$category->id:'';
 					$question->name                = $sheet->question_eng;
 					$question->type                = 'text';
 					$question->online              = 0;
 					
-					$setNtype=$this->getsetid($sheet->set_name,$sheet->set_type);
-					
-					$question->setquestion_id=$setNtype['set_id'];
-					$question->question_type_id=$setNtype['type_id'];
-					
-			
+					if($sheet->live_quiz_name){
+						$question_set=QuestionSet::where('title',$sheet->live_quiz_name)->first();
+						$question->online=1;
+						$question->question_set_id=$question_set->id;
+					}
+
+					if($sheet->set_name){
+						$setNtype=$this->getsetid($sheet->set_name,$sheet->set_type);
+						$question->setquestion_id=$setNtype['set_id'];
+						$question->question_type_id=$setNtype['type_id'];
+					}
 					$question->save();
 
 					//convert question to nepali and save to database
