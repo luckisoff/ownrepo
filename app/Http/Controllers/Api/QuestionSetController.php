@@ -21,8 +21,8 @@ class QuestionSetController extends CommonController {
 		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
 		                     ->whereHas('question_set', function($query) {
 			                     $query
-				                     ->where('start_time', '<=', now())
-				                     ->where('end_time', '>=', now());
+				                     ->where('start_time', '<=', now());
+				                     //->where('end_time', '<=', now());
 		                     })
 		                     ->inRandomOrder()
 		                     ->get();
@@ -35,16 +35,26 @@ class QuestionSetController extends CommonController {
 			]);
 		}
 
-		$this->saveGeneratedQuestions($questions);
+		//$this->saveGeneratedQuestions($questions);
 
 		$questionSet = $questions->first()->question_set;
 
 		return response()->json([
-			'status'          => true,
-			'code'            => 200,
-			'color'           => $questionSet->color,
-			'backgroundImage' => asset('public/images/' . $questionSet->sponser_image),
-			'data'            => $this->format_according_to_multi_language($questions),
+			'status'          		=> true,
+			'code'            		=> 200,
+			'quia_type'				=>'live',
+			'quiz_name'				=>$questionSet->title,
+			'quiz_prize'			=>$questionSet->prize,
+			'quiz_image' 			=> asset('public/images/' . $questionSet->sponser_image),
+			'timer_actual'    		=>$questionSet->counter,
+			'timer_milli'     		=>\Carbon\Carbon::parse($questionSet->counter)->diffInMilliseconds(),
+			'start_time'	  		=>$questionSet->start_time->format('m-d-y H:m:s'),
+			'color'           		=> $questionSet->color,
+			'sponsor_image'	  		=>$questionSet->sponsor->image,
+			'sponsor_back_image'	=>$questionSet->sponsor->background_image,
+			'sponsor_ad_image'	  	=>$questionSet->sponsor->ad_image,
+			'sponsor_prize'			=>$questionSet->sponsor->prize,
+			'data'            		=> $this->format_according_to_multi_language($questions),
 		]);
 	}
 

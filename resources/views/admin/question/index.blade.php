@@ -18,7 +18,7 @@
       <div class="card-header card-header-text" data-background-color="green">
         <h4 class="card-title">All questions of question set <b>{{ $question_set->title }}</b></h4>
       </div>
-      <a href="{{ route($routeType.'.create',['question_set_id' => $question_set->id]) }}" class="btn btn-success btn-round btn-xs create-new">
+      <a href="{{ route($routeType.'.create',['question-set-id' => $question_set->id]) }}" class="btn btn-success btn-round btn-xs create-new">
         <i class="material-icons">add_circle_outline</i> New Question
       </a>
     @elseif(request()->is('admin/setquestion*'))
