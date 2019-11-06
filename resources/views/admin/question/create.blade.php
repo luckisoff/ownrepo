@@ -139,7 +139,7 @@
                       data-size="5">
                 <option value="">Select Question Set</option>
                 @foreach($question_sets as $question_set)
-                  <option value="{{ $question_set->id }}" {{ $edit?($question_set->id==$model->question_set_id?'selected':''):($question_set->id==request()->question_set_id?'selected':'') }}>{{ $question_set->title }}</option>
+                  <option value="{{ $question_set->id }}" {{ $edit?($question_set->id==$model->question_set_id?'selected':''):($question_set->id==$_GET['question-set-id']?'selected':'') }}>{{ $question_set->title }}</option>
                 @endforeach
               </select>
               <div class="material-icons select-drop-down-arrow">keyboard_arrow_down</div>
