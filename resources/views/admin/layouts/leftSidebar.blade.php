@@ -215,6 +215,14 @@
                 <span class="sidebar-normal">Live Quiz</span>
               </a>
             </li>
+
+            <li @if(request()->is('admin/ads')) class="active" @endif>
+                <a href="{{ route('ads.index') }}">
+                  <span class="sidebar-mini">&nbsp;</span>
+                  {{--<i class="material-icons">spellcheck</i>--}}
+                  <span class="sidebar-normal">Ads</span>
+                </a>
+              </li>
           </ul>
         </div>
       </li>

@@ -20,8 +20,7 @@ class QuestionSetController extends CommonController {
 	public function index() {
 		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
 		                     ->whereHas('question_set', function($query) {
-			                     $query
-				                     ->where('start_time', '<=', now());
+			                     $query->where('start_time', '>=', today());
 				                     //->where('end_time', '<=', now());
 		                     })
 		                     ->inRandomOrder()
@@ -42,7 +41,7 @@ class QuestionSetController extends CommonController {
 		return response()->json([
 			'status'          		=> true,
 			'code'            		=> 200,
-			'quia_type'				=>'live',
+			'quiz_type'				=>'live',
 			'quiz_name'				=>$questionSet->title,
 			'quiz_prize'			=>$questionSet->prize,
 			'quiz_image' 			=> asset('public/images/' . $questionSet->sponser_image),

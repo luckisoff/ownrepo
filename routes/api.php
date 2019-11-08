@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function(Request $request) {
 
 //Route::group(['middleware' => ['auth:api', 'restrictedIps']], function() {
 Route::group(['middleware' => ['auth:api']], function() {
+	
 	Route::get('profile', 'ApiController@profile');
 //	Route::get('offline-questions-random', 'ApiController@offline_questions_random');
 	Route::get('offline-questions-from-category/{category}', 'ApiController@offline_questions_from_category');
@@ -79,6 +80,7 @@ Route::get('get-leaderboard-points3', 'Api\LeaderboardController@get_leaderboard
 Route::namespace('Api')->group(function() {
 	Route::get('get-logged-in-user-points/{id}', 'LeaderboardController@get_user_points');
 	Route::post('save-user-points', 'LeaderboardController@save_user_points');
+	
 });
 //gundruk api
 
@@ -88,4 +90,5 @@ Route::get('get-questions/{country?}', 'QuestionLevelController@questions');
 Route::get('get-question-level/{user_id?}/{level?}', 'QuestionLevelController@questions');
 Route::post('set-played-level', 'QuestionLevelController@setLevel');
 Route::get('live-question','Api\QuestionSetController@index');
+Route::get('get-ads','AdsController@getAds');
 

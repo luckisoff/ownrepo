@@ -64,6 +64,8 @@ class QuestionLevelController extends CommonController {
 		
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
 		
+		//$questiontype=\App\QuestionType::where('name',$level)->first();
+		
 		if(!empty($levelPlayed)){
 			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with('question')->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){

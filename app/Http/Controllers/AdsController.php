@@ -81,7 +81,18 @@ class AdsController extends AsdhController {
 			'image'       => $imageName,
 			'contact'     => $request->input('contact'),
 			'email'       => $request->input('email'),
+			'video_link'  =>$request->input('video_link'),
 			'description' => $request->input('description'),
 		];
+	}
+
+	public function getAds()
+	{
+		$ads=Ads::select('title','contact','email','description')->orderBy('created_at','desc')->get();
+		return response()->json([
+			'status'          		=> true,
+			'code'            		=> 200,
+			'data'            		=> $ads,
+		]);
 	}
 }

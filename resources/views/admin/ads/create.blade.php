@@ -46,13 +46,11 @@
             {{--slug--}}
             <div class="form-group {{ $errors->has('slug')?'has-error is-focused':'' }}">
               <label for="slug">{{ ucwords('slug') }}
-                <small>*</small>
               </label>
               <input type="text"
                      class="form-control"
                      id="slug"
                      name="slug"
-                     required="true"
                      value="{{$edit?old('slug')??$model->slug:old('slug')}}"/>
               @include('extras.error_message',['errorName' => 'slug'])
             </div>
@@ -61,13 +59,11 @@
             {{--contact--}}
             <div class="form-group {{ $errors->has('contact')?'has-error':'' }}">
               <label for="contact">{{ ucwords('contact number') }}
-                <small>*</small>
               </label>
               <input type="text"
                      class="form-control"
                      id="contact"
                      name="contact"
-                     required="true"
                      value="{{$edit?$model->contact:old('contact')}}"/>
               @include('extras.error_message',['errorName' => 'contact'])
             </div>
@@ -76,22 +72,33 @@
             {{--email--}}
             <div class="form-group {{ $errors->has('email')?'has-error':'' }}">
               <label for="email">{{ ucwords('email') }}
-                <small>*</small>
               </label>
               <input type="email"
                      class="form-control"
                      id="email"
                      name="email"
-                     required="true"
                      value="{{$edit?$model->email:old('email')}}"/>
               @include('extras.error_message',['errorName' => 'email'])
             </div>
             {{--./email--}}
+            {{-- video link --}}
+            <div class="form-group {{ $errors->has('video_link')?'has-error':'' }}">
+                <label for="video_link">{{ ucwords('video link') }}
+                  <small>*</small>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="video_link"
+                       name="video_link"
+                       required="true"
+                       value="{{$edit?$model->video_link:old('video_link')}}"/>
+                @include('extras.error_message',['errorName' => 'video_link'])
+              </div>
+
 
             {{--description--}}
             <div class="form-group {{ $errors->has('description')?'has-error is-focused':'' }}">
               <label for="description">Description
-                <small>*</small>
               </label>
               <textarea class="form-control asdh-tinymce"
                         id="description"

@@ -25,16 +25,7 @@ class AdsRequest extends FormRequest {
 
 		return [
 			'title'       => 'required|string|max:255',
-			'slug'        => [
-				'required',
-				'string',
-				'max:255',
-				Rule::unique('ads')->ignore($model->id),
-			],
-			'image'       => 'nullable|image|max:5120',
-			'description' => 'required|string',
-			'contact'     => 'required|string|max:50',
-			'email'       => 'required|string|max:50',
+			'video_link'=>'required'
 		];
 	}
 }
