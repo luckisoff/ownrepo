@@ -14,7 +14,7 @@
 
       <div class="card-header card-header-text" data-background-color="green">
         <h4 class="card-title">
-          @if(isset($_GET['question-set-id']) && !is_null($_GET['question-set-id']))
+          @if(isset($_GET['question-set-id']))
             Add new question to <b>{{ isset($_GET['question-set-id'])?$question_sets->find($_GET['question-set-id'])->title:'' }}</b>
           @elseif(request()->has('setquestion_id'))
             Add new question to <b>{{ $setquestion->name }}</b>
@@ -24,7 +24,7 @@
         </h4>
       </div>
       
-      @if(!is_null($_GET['question-set-id']))
+      @if(isset($_GET['question-set-id']))
         <a href="{{ route('question-set.show', request()->question_set_id) }}"
            class="btn btn-success btn-round btn-xs create-new">
           <i class="material-icons">remove_red_eye</i> View all questions of
@@ -40,7 +40,7 @@
 
       <div class="card-content">
         
-          @if(is_null($_GET['question-set-id']))
+          @if(!isset($_GET['question-set-id']))
             <div class="row">
               <div class="col-md-3">
                 {{-- difficulty_level --}}

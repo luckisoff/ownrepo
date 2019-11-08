@@ -45,7 +45,7 @@ class QuestionController extends AsdhController {
 		$this->website['edit'] = false;
 		// if create question is clicked from question set index page
 		
-			if($_GET['question-set-id']) {
+			if(isset($_GET['question-set-id'])) {
 				$this->website['current_question_set'] = QuestionSet::find(request()->question_set_id);
 				$this->website['question_sets']        = QuestionSet::get();
 			} else {
@@ -111,7 +111,7 @@ class QuestionController extends AsdhController {
 		$this->website['model'] = $question;
 
 			// if create question is clicked from question set index page
-			if(!is_null($_GET['question-set-id'])) {
+			if(isset($_GET['question-set-id'])) {
 				$this->website['question_sets']        = QuestionSet::get();
 				$this->website['current_question_set'] = $question;
 			} else {
