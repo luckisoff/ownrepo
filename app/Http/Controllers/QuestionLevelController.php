@@ -74,7 +74,7 @@ class QuestionLevelController extends CommonController {
 				}
 			}
 		}else{
-			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->random(1)->get();
+			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->inRandomOrder()->first();
 		}
 		
 		if(!$setWithQuestion){
