@@ -60,21 +60,21 @@ class QuestionLevelController extends CommonController {
 	// 	return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	// }
 
-	public function questions($user_id='',$level=1) {
+	public function questions($user_id='',$set_id=1) {
 		
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
 		
 		//$questiontype=\App\QuestionType::where('name',$level)->first();
 		
 		if(!empty($levelPlayed)){
-			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with('question')->inRandomOrder()->get();
+			$setWithQuestion=Setquestion::where('question_type_id',$set_id)->whereHas('question')->with('question')->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){
 				if(!in_array($setquestion->id,$levelPlayed)){
 					$setWithQuestion=$setquestion;
 				}
 			}
 		}else{
-			$setWithQuestion=Setquestion::where('question_type_id',$level)->whereHas('question')->with('question')->inRandomOrder()->first();
+			$setWithQuestion=Setquestion::where('question_type_id',$set_id)->whereHas('question')->with('question')->inRandomOrder()->first();
 		}
 		
 		 $return_data = $this->format_multi_lang($setWithQuestion->question);
