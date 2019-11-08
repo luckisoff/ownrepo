@@ -60,31 +60,38 @@ class QuestionLevelController extends CommonController {
 	// 	return response()->json(['status' => true, 'code' => 200, 'data' => $return_data], 200);
 	// }
 
-	public function questions($user_id='',$set_id=1) {
+	public function questions($user_id='',$type_id=1) {
 		
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
 		
 		//$questiontype=\App\QuestionType::where('name',$level)->first();
 		
 		if(!empty($levelPlayed)){
-			$setWithQuestion=Setquestion::where('question_type_id',$set_id)->whereHas('question')->with('question')->inRandomOrder()->get();
+			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->inRandomOrder()->get();
 			foreach($setWithQuestion as $setquestion){
 				if(!in_array($setquestion->id,$levelPlayed)){
 					$setWithQuestion=$setquestion;
 				}
 			}
 		}else{
-			$setWithQuestion=Setquestion::where('question_type_id',$set_id)->whereHas('question')->with('question')->inRandomOrder()->first();
+			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->inRandomOrder()->first();
 		}
 		
+		if(!$setWithQuestion){
+			return response()->json([
+				'status'=>false,
+				'message'=>'error',
+				'data'	=>'No Questions Available for Now.'
+			]);
+		}
 		 $return_data = $this->format_multi_lang($setWithQuestion->question);
 
-		 return response()->json(['status' => true, 'code' => 200, 'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
+		 return response()->json(['status' => true, 'code' => 200, 'type_id'=>$setWithQuestion->id,'data' => $return_data], 200);
 	}
 
 
 	public function setLevel(Request $request){
-		if(empty($request->user_id) || empty($request->set_id)){
+		if(empty($request->user_id) || empty($request->type_id)){
 			return ["status"=>false];
 		}
 
