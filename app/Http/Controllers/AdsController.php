@@ -88,7 +88,7 @@ class AdsController extends AsdhController {
 
 	public function getAds()
 	{
-		$ads=Ads::select('title','contact','email','description')->orderBy('created_at','desc')->get();
+		$ads=Ads::select('title','contact','email','description','video_link')->orderBy('created_at','desc')->get();
 		return response()->json([
 			'status'          		=> true,
 			'code'            		=> 200,
