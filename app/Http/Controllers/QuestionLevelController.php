@@ -61,18 +61,10 @@ class QuestionLevelController extends CommonController {
 	// }
 
 	public function questions($user_id='',$type_id=1) {
-		
 		$levelPlayed=Level::where('user_id',$user_id)->pluck('setquestion_id')->toArray();
-		
-		//$questiontype=\App\QuestionType::where('name',$level)->first();
-		
-		if(!empty($levelPlayed)){
+		if($levelPlayed){
 			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->inRandomOrder()->get();
-			foreach($setWithQuestion as $setquestion){
-				if(!in_array($setquestion->id,$levelPlayed)){
-					$setWithQuestion=$setquestion;
-				}
-			}
+			$setWithQuestion=$setWithQuestion->except($levelPlayed)->first();
 		}else{
 			$setWithQuestion=Setquestion::where('question_type_id',$type_id)->whereHas('question')->with('question')->inRandomOrder()->first();
 		}
@@ -85,7 +77,6 @@ class QuestionLevelController extends CommonController {
 			]);
 		}
 		 $return_data = $this->format_multi_lang($setWithQuestion->question);
-
 		 return response()->json(['status' => true, 'code' => 200, 'type_id'=>$setWithQuestion->id,'data' => $return_data], 200);
 	}
 
