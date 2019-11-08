@@ -14,7 +14,7 @@
 
       <div class="card-header card-header-text" data-background-color="green">
         <h4 class="card-title">
-          @if(!is_null($_GET['question-set-id']))
+          @if(isset($_GET['question-set-id']) && !is_null($_GET['question-set-id']))
             Add new question to <b>{{ isset($_GET['question-set-id'])?$question_sets->find($_GET['question-set-id'])->title:'' }}</b>
           @elseif(request()->has('setquestion_id'))
             Add new question to <b>{{ $setquestion->name }}</b>
