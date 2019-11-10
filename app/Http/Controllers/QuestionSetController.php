@@ -66,7 +66,7 @@ class QuestionSetController extends AsdhController {
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
-			'counter'		 =>$request->counter,
+			'counter'		 =>\Carbon\Carbon::parse($request->counter),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
 			'sponsor_id'	=>$request->id,
@@ -135,7 +135,7 @@ class QuestionSetController extends AsdhController {
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
-			'counter'		 =>$request->counter,
+			'counter'		 =>\Carbon\Carbon::parse($request->counter),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
 		])
