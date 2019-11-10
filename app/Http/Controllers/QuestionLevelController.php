@@ -73,7 +73,7 @@ class QuestionLevelController extends CommonController {
 			return response()->json([
 				'status'=>false,
 				'message'=>'error',
-				'data'	=>'No Questions Available for Now.'
+				'data'	=>'You seem to be genius. Try again later!'
 			]);
 		}
 		 $return_data = $this->format_multi_lang($setWithQuestion->question->random(15));
