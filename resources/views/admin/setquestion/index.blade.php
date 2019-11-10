@@ -54,6 +54,9 @@
           </tbody>
         </table>
       </div>
+      <div class="card-footer text-center">
+        {{ $models->links() }}
+      </div>
     </div>
   </div>
 @endsection
@@ -62,7 +65,7 @@
   @push('script')
     <script>
       $(document).ready(function () {
-        $('.table').dataTable({
+        $('table').dataTable({
           "paging"      : false,
           "lengthChange": true,
           "lengthMenu"  : [30, 50, 100],

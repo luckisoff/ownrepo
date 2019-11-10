@@ -11,14 +11,14 @@ class SetQuestionController extends AsdhController
     protected $prefix='setquestion';
 
     public function __construct() {
-		ini_set('memory_limit', '-1');
+		//ini_set('memory_limit', '-1');
 		parent::__construct();
 		$this->website['routeType'] = 'setquestion';
     }
     
     public function index() {
 		
-		$this->website['models'] = Setquestion::withCount('question')->paginate($this->default_pagination_limit);
+		$this->website['models'] = Setquestion::withCount('question')->latest()->paginate(5);
 		return view('admin.setquestion.index', $this->website);
 	}
 
