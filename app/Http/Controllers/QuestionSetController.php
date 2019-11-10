@@ -51,6 +51,10 @@ class QuestionSetController extends AsdhController {
 			return back()->with('failure_message', 'Question set "' . $questionSetInRange->title . '" is in this time range.');
 		}
 
+		if(Carbon::parse($request->timer)>=$startTime){
+			return back()->with('failure_message', 'Timer must be earlier time than start time.');
+		}
+
 		$sponser_image_name = null;
 		if(!is_null($request->sponser_image)) {
 			$sponser_image_name = upload_image_modified($request->sponser_image, $this->prefix);
@@ -60,6 +64,7 @@ class QuestionSetController extends AsdhController {
 			$icon = upload_image_modified($request->icon, $this->prefix);
 		}
 
+		
 		return QuestionSet::create([
 			'title'          => $request->title,
 			'sponser_status' => 1,
@@ -115,6 +120,10 @@ class QuestionSetController extends AsdhController {
 
 		if($questionSetInRange) {
 			return back()->with('failure_message', 'Question set "' . $questionSetInRange->title . '" is in this time range.');
+		}
+
+		if(Carbon::parse($request->timer)>=$startTime){
+			return back()->with('failure_message', 'Timer must be earlier time than start time.');
 		}
 
 		$sponser_image_name = $question_set->getOriginal('sponser_image');
