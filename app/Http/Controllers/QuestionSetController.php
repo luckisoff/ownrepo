@@ -30,7 +30,7 @@ class QuestionSetController extends AsdhController {
 	public function store(QuestionSetRequest $request) {
 		$startTime = Carbon::parse($request->start_time);
 		$endTime   = Carbon::parse($request->end_time);
-
+		
 		$questionSetInRange = QuestionSet::where(function($query) use ($startTime, $endTime) {
 			$query->whereBetween('start_time', [$startTime, $endTime]);
 		})
@@ -66,7 +66,7 @@ class QuestionSetController extends AsdhController {
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
-			'counter'		 =>\Carbon\Carbon::parse($request->counter),
+			'counter'		 =>Carbon::parse($request->timer),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
 			'sponsor_id'	=>$request->id,
@@ -93,7 +93,6 @@ class QuestionSetController extends AsdhController {
 	public function update(QuestionSetRequest $request, QuestionSet $question_set) {
 		$startTime = Carbon::parse($request->start_time);
 		$endTime   = Carbon::parse($request->end_time);
-
 		$questionSetInRange = QuestionSet::where('id', '!=', $question_set->id)
 		                                 ->where(function($query) use ($startTime, $endTime) {
 			                                 $query
@@ -135,7 +134,7 @@ class QuestionSetController extends AsdhController {
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
-			'counter'		 =>\Carbon\Carbon::parse($request->counter),
+			'counter'		 =>Carbon::parse($request->timer),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
 		])
