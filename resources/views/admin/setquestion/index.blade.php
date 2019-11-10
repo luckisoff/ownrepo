@@ -63,16 +63,16 @@
     <script>
       $(document).ready(function () {
         $('table').dataTable({
-          "paging"      : false,
+          "paging"      : true,
           "lengthChange": true,
-          "lengthMenu"  : [10, 15, 20],
+          "lengthMenu"  : [30, 50, 100],
           "searching"   : true,
           "ordering"    : true,
           "info"        : false,
           "autoWidth"   : false,
           'columnDefs'  : [{
             'orderable': false,
-            'targets'  : [1,5]
+            'targets'  : [4]
           }]
         });
       });
