@@ -51,9 +51,7 @@ class QuestionSetController extends AsdhController {
 			return back()->with('failure_message', 'Question set "' . $questionSetInRange->title . '" is in this time range.');
 		}
 
-		if(Carbon::parse($request->timer)>=$startTime){
-			return back()->with('failure_message', 'Timer must be earlier time than start time.');
-		}
+		
 
 		$sponser_image_name = null;
 		if(!is_null($request->sponser_image)) {
