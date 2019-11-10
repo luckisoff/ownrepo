@@ -57,6 +57,31 @@ class QuestionSetController extends CommonController {
 		]);
 	}
 
+	public function time()
+	{
+		$questionSet=QuestionSet::where('start_time', '>=', today())->first();
+			if(!$questionSet) {
+				return response()->json([
+					'status'  => false,
+					'code'    => 200,
+					'message' => 'Not enough questions.',
+				]);
+			}
+
+		return response()->json([
+			'status'          		=> true,
+			'code'            		=> 200,
+			'quiz_type'				=>'live',
+			'quiz_name'				=>$questionSet->title,
+			'quiz_prize'			=>$questionSet->prize,
+			'timer_actual'    		=>$questionSet->counter,
+			'start_time'	  		=>$questionSet->start_time->format('m-d-y H:m:s'),
+			'sponsor_image'	  		=>$questionSet->sponsor->image,
+			'sponsor_back_image'	=>$questionSet->sponsor->background_image,
+			'sponsor_ad_image'	  	=>$questionSet->sponsor->ad_image,
+			'sponsor_prize'			=>$questionSet->sponsor->prize,
+		]);
+	}
 	/**
 	 * Submit result after solving generated question set questions
 	 *
