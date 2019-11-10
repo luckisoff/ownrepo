@@ -11,13 +11,14 @@ use Illuminate\Http\Request;
 
 class QuestionSetController extends CommonController {
 	use GeneratedQuestionsTrait;
-
+	//controller and methods are for live quiz system 
 	/**
 	 * Get questions in a question set(in current time) in random order
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function index() {
+	
 		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
 		                     ->whereHas('question_set', function($query) {
 			                     $query->where('start_time', '>=', today());
@@ -66,7 +67,13 @@ class QuestionSetController extends CommonController {
 					'message' => 'Not enough questions.',
 				]);
 			}
-
+		if(!$questionSet){
+			return response()->json([
+				"status"=>false,
+				"message"=>"No Quiz is available for today.",
+				'data'=>''
+			]);
+		}
 		return response()->json([
 			'status'          		=> true,
 			'code'            		=> 200,

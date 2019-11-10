@@ -2,30 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Advertisement;
-use App\Category;
-use App\Device;
-use App\DifficultyLevel;
-use App\Exceptions\SocialLoginException;
-use App\FastestFingerFirstQuestion;
 use App\Http\Controllers\Api\CommonController;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserResourceCollection;
-use App\Leaderboard;
-use App\Mail\VerifyEmail;
-use App\Option;
-use App\Question;
-use App\QuestionSet;
-use App\QuestionSetCollection;
-use App\Role;
-use App\Setting;
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
-use Symfony\Component\HttpFoundation\Response;
 use App\Setquestion;
 use App\Level;
 class QuestionLevelController extends CommonController {
@@ -113,7 +92,6 @@ class QuestionLevelController extends CommonController {
 				'questionId' => $question->id,
 				'question'   => $question->name,
 				'set'       =>$question->setquestion['name'],
-				
 				'point'     =>$question->questionType['point'],
 				'country'	=>$question->country,
 				'options'    => $question->options()->select('name', 'answer')->get()->shuffle()->toArray(),
