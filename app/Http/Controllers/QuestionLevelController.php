@@ -83,18 +83,18 @@ class QuestionLevelController extends CommonController {
 
 	public function setLevel(Request $request){
 		if(empty($request->user_id) || empty($request->set_id)){
-			return ["status"=>false];
+			return ["status"=>false,'message'=>'missing parametes','data'=>''];
 		}
 
 		$level=Level::where('user_id',$request->user_id)->where('setquestion_id',$request->set_id)->first();
-		if(!empty($level)){
-			return ["status"=>false];
+		if($level){
+			return ["status"=>false,'message'=>'This set is already payed','data'=>''];
 		}
 		$level=new Level();
 		$level->user_id=$request->user_id;
 		$level->setquestion_id=$request->set_id;
 		$level->save();
-		return ["status"=>true];
+		return ["status"=>true,'message'=>'Played set stored','data'=>''];
 	}
 
 
