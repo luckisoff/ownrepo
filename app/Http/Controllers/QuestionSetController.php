@@ -94,7 +94,7 @@ class QuestionSetController extends AsdhController {
 	}
 
 	public function update(QuestionSetRequest $request, QuestionSet $question_set) {
-		$startTime = Carbon::parse($request->start_time);
+		$startTime = Carbon::parse($request->start_time,'UTC');
 		$endTime   = Carbon::parse($request->end_time);
 		$questionSetInRange = QuestionSet::where('id', '!=', $question_set->id)
 		                                 ->where(function($query) use ($startTime, $endTime) {
