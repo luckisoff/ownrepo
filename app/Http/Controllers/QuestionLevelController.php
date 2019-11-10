@@ -76,8 +76,8 @@ class QuestionLevelController extends CommonController {
 				'data'	=>'No Questions Available for Now.'
 			]);
 		}
-		 $return_data = $this->format_multi_lang($setWithQuestion->question);
-		 return response()->json(['status' => true, 'code' => 200, 'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
+		 $return_data = $this->format_multi_lang($setWithQuestion->question->random(15));
+		 return response()->json(['status' => true, 'code' => 200,'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
 	}
 
 
