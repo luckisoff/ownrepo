@@ -77,12 +77,12 @@ class QuestionLevelController extends CommonController {
 			]);
 		}
 		 $return_data = $this->format_multi_lang($setWithQuestion->question);
-		 return response()->json(['status' => true, 'code' => 200, 'type_id'=>$setWithQuestion->id,'data' => $return_data], 200);
+		 return response()->json(['status' => true, 'code' => 200, 'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
 	}
 
 
 	public function setLevel(Request $request){
-		if(empty($request->user_id) || empty($request->type_id)){
+		if(empty($request->user_id) || empty($request->set_id)){
 			return ["status"=>false];
 		}
 
