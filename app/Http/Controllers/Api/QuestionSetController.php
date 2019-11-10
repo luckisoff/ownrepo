@@ -75,7 +75,7 @@ class QuestionSetController extends CommonController {
 			'quiz_name'				=>$questionSet->title,
 			'quiz_prize'			=>$questionSet->prize,
 			'start_time'    		=>$questionSet->counter,
-			'actual_time'	  		=>$questionSet->start_time->format('m-d-y H:m:s'),
+			'actual_time'	  		=>$questionSet->start_time,
 			'sponsor_image'	  		=>$questionSet->sponsor?$questionSet->sponsor->image:'',
 			'sponsor_back_image'	=>$questionSet->sponsor?$questionSet->sponsor->background_image:'',
 			'sponsor_ad_image'	  	=>$questionSet->sponsor?$questionSet->sponsor->ad_image:'',
