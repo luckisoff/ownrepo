@@ -93,7 +93,7 @@ class QuestionLevelController extends CommonController {
 
 		$level=Level::where('user_id',$request->user_id)->where('setquestion_id',$request->set_id)->first();
 		if($level){
-			return ["status"=>false,'message'=>'This set is already payed','data'=>''];
+			return ["status"=>false,'message'=>'This set is already played','data'=>''];
 		}
 		$level=new Level();
 		$level->user_id=$request->user_id;
