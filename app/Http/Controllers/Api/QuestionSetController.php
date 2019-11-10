@@ -59,7 +59,7 @@ class QuestionSetController extends CommonController {
 
 	public function time()
 	{
-		$questionSet=QuestionSet::where('start_time', '>=', today())->first();
+		$questionSet=QuestionSet::where('start_time', '>=', today())->whereHas('questions')->first();
 			if(!$questionSet) {
 				return response()->json([
 					'status'  => false,
