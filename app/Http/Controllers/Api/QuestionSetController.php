@@ -74,7 +74,7 @@ class QuestionSetController extends CommonController {
 			'quiz_type'				=>'live',
 			'quiz_name'				=>$questionSet->title,
 			'quiz_prize'			=>$questionSet->prize,
-			'start_time'    		=>\Carbon\Carbon::parse($questionSet->timer)->format("Y-m-d H:m:s"),
+			'start_time'    		=>\Carbon\Carbon::parse($questionSet->counter)->format("Y-m-d H:m:s"),
 			'actual_time'	  		=>\Carbon\Carbon::parse($questionSet->start_time)->format("Y-m-d H:m:s"),
 			'sponsor_image'	  		=>$questionSet->sponsor?$questionSet->sponsor->image:'',
 			'sponsor_back_image'	=>$questionSet->sponsor?$questionSet->sponsor->background_image:'',
