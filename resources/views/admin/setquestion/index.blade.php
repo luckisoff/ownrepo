@@ -62,8 +62,8 @@
   @push('script')
     <script>
       $(document).ready(function () {
-        $('table').dataTable({
-          "paging"      : true,
+        $('.table').dataTable({
+          "paging"      : false,
           "lengthChange": true,
           "lengthMenu"  : [30, 50, 100],
           "searching"   : true,
