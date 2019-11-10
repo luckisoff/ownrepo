@@ -15,6 +15,7 @@
             <th width="40">#</th>
             {{-- <th width="150">Background Image</th> --}}
             <th>Name</th>
+            <th>No. of Sets</th>
             <th>Points</th>
             <th width="140" class="text-center">Actions</th>
           </tr>
@@ -26,6 +27,7 @@
               {{-- <td><img src="{{$model->image(50,50,'sponser_image')}}" alt="{{$model->title}}" style="width:50px;height:50px;border-radius:50%;"></td>
                --}}
               <td><a href="{{ route('question-set.show', $model->id) }}">{{$model->name}}</a></td>
+              <td>{{$model->setquestion->count()}}</td>
               <td>{{$model->point}}</td>
               <td class="asdh-edit_and_delete td-actions">
                 {{-- <a href="{{ route('question.create',['question_type_id' => $model->id]) }}"
