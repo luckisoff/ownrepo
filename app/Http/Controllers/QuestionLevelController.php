@@ -77,7 +77,12 @@ class QuestionLevelController extends CommonController {
 			]);
 		}
 		 $return_data = $this->format_multi_lang($setWithQuestion->question->random(15));
-		 return response()->json(['status' => true, 'code' => 200,'set_id'=>$setWithQuestion->id,'data' => $return_data], 200);
+		 return response()->json([
+			 'status' => true, 
+			 'code' => 200, 
+			 'set_id'=>$setWithQuestion->id,
+			 'set_type'=> $setWithQuestion->questionType->name,
+			 'data' => $return_data], 200);
 	}
 
 
@@ -108,7 +113,7 @@ class QuestionLevelController extends CommonController {
 				'questionId' => $question->id,
 				'question'   => $question->name,
 				'set'       =>$question->setquestion['name'],
-				'type'      =>$question->questionType['name'],
+				
 				'point'     =>$question->questionType['point'],
 				'country'	=>$question->country,
 				'options'    => $question->options()->select('name', 'answer')->get()->shuffle()->toArray(),
@@ -118,7 +123,6 @@ class QuestionLevelController extends CommonController {
 				'id'       => $question->id,
 				'question' => $question->nepali()->name,
 				'set'       =>$question->setquestion['name'],
-				'type'      =>$question->questionType['name'],
 				'point'     =>$question->questionType['point'],
 				'country'	=>$question->country,
 				'options'  => $question->options_nepali(),
