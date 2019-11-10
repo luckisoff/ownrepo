@@ -12,7 +12,7 @@ class Setquestion extends Model
         return $this->hasMany(Question::class);
     }
 
-    public function questiontype(){
+    public function questionType(){
         return $this->belongsTo(QuestionType::class);
     }
 

@@ -16,7 +16,8 @@
             {{-- <th width="150">Background Image</th> --}}
             <th>Set Name</th>
             <th>Reward Price</th>
-            <th>Set Status</th>
+            <th>Type</th>
+            {{-- <th>Set Status</th> --}}
             <th width="140" class="text-center">Actions</th>
           </tr>
           </thead>
@@ -32,8 +33,9 @@
                 @endif
               </td>
               <td>{{$model->price}}</td>
-              
-              <td>{!!$model->status==1?"<span class='label label-success'>Active</span>":"<span class='label label-danger'>Deactive</span>"!!}</td>
+              <td>{{$model->questionType->name}}</td>
+              {{-- <td>{!!$model->status==1?"<span class='label label-success'>Active</span>":"<span class='label label-danger'>Deactive</span>"!!}</td>
+               --}}
               <td class="asdh-edit_and_delete td-actions">
                 <a href="{{ route('setquestion.show', $model) }}"
                    type="button"
