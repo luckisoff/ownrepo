@@ -60,16 +60,10 @@ class QuestionSetController extends CommonController {
 	public function time()
 	{
 		$questionSet=QuestionSet::where('start_time', '>=', today())->whereHas('questions')->first();
-			if(!$questionSet) {
-				return response()->json([
-					'status'  => false,
-					'code'    => 200,
-					'message' => 'Not enough questions.',
-				]);
-			}
 		if(!$questionSet){
 			return response()->json([
 				"status"=>false,
+				"code"=>200,
 				"message"=>"No Quiz is available for today.",
 				'data'=>''
 			]);
