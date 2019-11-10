@@ -45,7 +45,7 @@ class QuestionSetController extends CommonController {
 			'quiz_type'				=>'live',
 			'quiz_name'				=>$questionSet->title,
 			'quiz_prize'			=>$questionSet->prize,
-			'quiz_image' 			=> asset('public/images/' . $questionSet->sponser_image),
+			'quiz_image' 			=> $questionSet->sponser_image?asset('public/images/' . $questionSet->sponser_image):'',
 			'timer_actual'    		=>$questionSet->counter,
 			'start_time'	  		=>$questionSet->start_time->format('m-d-y H:m:s'),
 			'color'           		=> $questionSet->color,
