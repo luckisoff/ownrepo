@@ -33,7 +33,7 @@
                 @endif
               </td>
               <td>{{$model->price}}</td>
-              <td>{{$model->questionType->name}}</td>
+              <td>{{$model->questionType['name']}}</td>
               {{-- <td>{!!$model->status==1?"<span class='label label-success'>Active</span>":"<span class='label label-danger'>Deactive</span>"!!}</td>
                --}}
               <td class="asdh-edit_and_delete td-actions">
