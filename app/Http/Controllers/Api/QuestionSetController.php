@@ -29,7 +29,6 @@ class QuestionSetController extends CommonController {
 							 
 		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
 		                     ->whereHas('question_set')
-		                     ->inRandomOrder()
 		                     ->get();
 
 		if($questions->count() < 5) {
