@@ -19,17 +19,17 @@ class QuestionSetController extends CommonController {
 	 */
 	public function index() {
 	
-		// $questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
-		//                      ->whereHas('question_set', function($query) {
-		// 	                     $query->where('start_time', '>=', today());
-		// 		                     //->where('end_time', '<=', now());
-		//                      })
-		//                      ->inRandomOrder()
-		// 					 ->get();
-							 
 		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
-		                     ->whereHas('question_set')
-		                     ->get();
+		                     ->whereHas('question_set', function($query) {
+			                     $query->where('start_time', '>=', today());
+				                     //->where('end_time', '<=', now());
+		                     })
+		                     ->inRandomOrder()
+							 ->get();
+							 
+		// $questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
+		//                      ->whereHas('question_set')
+		//                      ->get();
 
 		if($questions->count() < 5) {
 			return response()->json([
@@ -50,8 +50,8 @@ class QuestionSetController extends CommonController {
 			'quiz_name'				=>$questionSet->title,
 			'quiz_prize'			=>$questionSet->prize,
 			'quiz_image' 			=>$questionSet->sponser_image?asset('public/images/' . $questionSet->sponser_image):'',
-			'start_time'    		=>$questionSet->counter->format('d-m-Y H:i:s'),
-			'actual_time'	  		=>$questionSet->start_time->format('d-m-Y H:i:s'),
+			'start_time'    		=>$questionSet->counter->format("Y-m-d H:i:s P",
+			'actual_time'	  		=>$questionSet->start_time->format("Y-m-d H:i:s P",
 			'color'           		=>$questionSet->color,
 			'sponsor_image'	  		=>$questionSet->sponsor?$questionSet->sponsor->image:'',
 			'sponsor_back_image'	=>$questionSet->sponsor?$questionSet->sponsor->background_image:'',
