@@ -64,6 +64,16 @@ class QuestionSetController extends CommonController {
 	public function time()
 	{
 		$questionSet=QuestionSet::where('start_time', '>=', today())->whereHas('questions')->first();
+		$nextQuizes=QuestionSet::where('start_time', '>=', today())->select(
+			'id','title','sponser_image as quiz_image','prize','sponsor_id','counter as start_time','start_time as actual_time'
+		)->get();
+		$nextQuizes=$nextQuizes->except($questionSet->id);
+		
+		foreach($nextQuizes as $nextSet){
+			$nextSet->setAttribute('sponsor',$nextSet->sponsor?$nextSet->sponsor:'');
+			
+		}
+
 		if(!$questionSet){
 			return response()->json([
 				"status"=>false,
@@ -84,6 +94,7 @@ class QuestionSetController extends CommonController {
 			'sponsor_back_image'	=>$questionSet->sponsor?$questionSet->sponsor->background_image:'',
 			'sponsor_ad_image'	  	=>$questionSet->sponsor?$questionSet->sponsor->ad_image:'',
 			'sponsor_prize'			=>$questionSet->sponsor?$questionSet->sponsor->prize:'',
+			'next_quiz'				=>$nextQuizes
 		]);
 	}
 	/**

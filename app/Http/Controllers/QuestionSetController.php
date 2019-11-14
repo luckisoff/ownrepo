@@ -72,7 +72,8 @@ class QuestionSetController extends AsdhController {
 			'counter'		 =>Carbon::parse($request->timer),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
-			'sponsor_id'	=>$request->id,
+			'prize'			=>$request->prize,
+			'sponsor_id'	=>$request->sponser,
 		])
 			? back()->with('success_message', 'QuestionSet successfully added.')
 			: back()->with('failure_message', 'QuestionSet could not be added. Please try again later.');
@@ -136,14 +137,17 @@ class QuestionSetController extends AsdhController {
 		}
 
 		return $question_set->update([
+
 			'title'          => $request->title,
-			'sponser_status' => 0,
+			'sponser_status' => 1,
 			'sponser_image'  => $sponser_image_name,
 			'icon'           => $icon,
 			'color'          => $request->color,
 			'counter'		 =>Carbon::parse($request->timer),
 			'start_time'     => $startTime,
 			'end_time'       => $endTime,
+			'prize'			=>$request->prize,
+			'sponsor_id'	=>$request->sponsor,
 		])
 			? back()->with('success_message', 'QuestionSet successfully updated.')
 			: back()->with('failure_message', 'QuestionSet could not be updated. Please try again later.');
