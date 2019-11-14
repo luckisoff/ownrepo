@@ -19,17 +19,17 @@ class QuestionSetController extends CommonController {
 	 */
 	public function index() {
 	
-		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
-		                     ->whereHas('question_set', function($query) {
-			                     $query->where('start_time', '>=', today());
-				                     //->where('end_time', '<=', now());
-		                     })
-		                     ->inRandomOrder()
-							 ->get();
-							 
 		// $questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
-		//                      ->whereHas('question_set')
-		//                      ->get();
+		//                      ->whereHas('question_set', function($query) {
+		// 	                     $query->where('start_time', '>=', today());
+		// 		                     //->where('end_time', '<=', now());
+		//                      })
+		//                      ->inRandomOrder()
+		// 					 ->get();
+							 
+		$questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
+		                     ->whereHas('question_set')
+		                     ->get();
 
 		if($questions->count() < 5) {
 			return response()->json([
