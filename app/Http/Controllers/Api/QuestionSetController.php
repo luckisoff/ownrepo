@@ -42,6 +42,7 @@ class QuestionSetController extends CommonController {
 		//$this->saveGeneratedQuestions($questions);
 
 		$questionSet = $questions->first()->question_set;
+		
 
 		return response()->json([
 			'status'          		=> true,
@@ -63,10 +64,11 @@ class QuestionSetController extends CommonController {
 
 	public function time()
 	{
-		$questionSet=QuestionSet::where('start_time', '>=', today())->whereHas('questions')->first();
+		$questionSet=QuestionSet::where('start_time', '>=', today())->with('sponsor')->whereHas('questions')->first();
+
 		$nextQuizes=QuestionSet::where('start_time', '>=', today())->select(
 			'id','title','sponser_image as quiz_image','prize','sponsor_id','counter as start_time','start_time as actual_time'
-		)->get();
+		)->limit(2)->get();
 		$nextQuizes=$nextQuizes->except($questionSet->id);
 		
 		foreach($nextQuizes as $nextSet){
@@ -90,10 +92,7 @@ class QuestionSetController extends CommonController {
 			'quiz_prize'			=>$questionSet->prize,
 			'start_time'    		=>$questionSet->counter->format("Y-m-d H:i:s P"),
 			'actual_time'	  		=>$questionSet->start_time->format("Y-m-d H:i:s P"),
-			'sponsor_image'	  		=>$questionSet->sponsor?$questionSet->sponsor->image:'',
-			'sponsor_back_image'	=>$questionSet->sponsor?$questionSet->sponsor->background_image:'',
-			'sponsor_ad_image'	  	=>$questionSet->sponsor?$questionSet->sponsor->ad_image:'',
-			'sponsor_prize'			=>$questionSet->sponsor?$questionSet->sponsor->prize:'',
+			
 			'next_quiz'				=>$nextQuizes
 		]);
 	}
