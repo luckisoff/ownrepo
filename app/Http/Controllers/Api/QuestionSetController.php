@@ -24,7 +24,6 @@ class QuestionSetController extends CommonController {
 			                     $query->where('start_time', '>=', today());
 				                     //->where('end_time', '<=', now());
 		                     })
-		                     ->inRandomOrder()
 							 ->get();
 							 
 		// $questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
