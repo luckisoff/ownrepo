@@ -69,7 +69,11 @@ Route::group(['middleware' => ['auth:api']], function() {
 });
 // Route::get('test', 'ApiController@test');
 Route::group(['middleware'=>'jwt.verify'],function(){
-	
+	Route::get('live-question','Api\QuestionSetController@index');
+	Route::get('live-question-time','Api\QuestionSetController@time');
+	Route::get('get-ads','AdsController@getAds');
+	//set the set_id into level 
+	Route::post('set-played-level', 'QuestionLevelController@setLevel');
 });
 Route::post('login', 'ApiController@login');
 Route::post('signup', 'ApiController@signup');
@@ -85,17 +89,15 @@ Route::namespace('Api')->group(function() {
 	
 });
 //gundruk api
-Route::get('live-question','Api\QuestionSetController@index');
+
 Route::get('questions', 'Api\QuizController@getRandomQuestion');
 Route::get('offline-questions-random', 'ApiController@offline_questions_random');
 Route::get('get-questions/{country?}', 'QuestionLevelController@questions');
 //get questions with set_id=level
 Route::get('get-question-level/{user_id?}/{level?}', 'QuestionLevelController@questions');
 
-//set the set_id into level 
-Route::post('set-played-level', 'QuestionLevelController@setLevel');
+
 //live quiz api
 //Route::get('live-question','Api\QuestionSetController@index');
-Route::get('live-question-time','Api\QuestionSetController@time');
-Route::get('get-ads','AdsController@getAds');
+
 
