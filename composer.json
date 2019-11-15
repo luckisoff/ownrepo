@@ -18,7 +18,8 @@
     "maatwebsite/excel": "~2.1.0",
     "mobiledetect/mobiledetectlib": "^2.8",
     "petehouston/laravel-tinymce-simple-imageupload": "^1.1",
-    "symfony/polyfill-iconv": "^1.4"
+    "symfony/polyfill-iconv": "^1.4",
+    "tymon/jwt-auth": "^0.5.12"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

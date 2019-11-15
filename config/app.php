@@ -185,7 +185,7 @@ return [
 		Laravel\Socialite\SocialiteServiceProvider::class,
 		// Maatwebsite\Excel\ExcelServiceProvider::class,
 		Laravel\Passport\PassportServiceProvider::class,
-
+		Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 	],
 
 	/*
@@ -237,6 +237,8 @@ return [
 		'Image'        => Intervention\Image\Facades\Image::class,
 		'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
 		// 'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
+		'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+		'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
 
 	],
 

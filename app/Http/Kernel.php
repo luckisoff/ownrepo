@@ -37,8 +37,8 @@ class Kernel extends HttpKernel {
 		],
 
 		'api' => [
-			'throttle:60,1',
-			'bindings',
+			'throttle:500000,1',
+			//'bindings',
 		],
 	];
 
@@ -62,5 +62,6 @@ class Kernel extends HttpKernel {
 		'authenticateAuthorize' => \App\Http\Middleware\TestingMiddleware::class,
 		'restrictedIps'         => \App\Http\Middleware\RestrictedIpsMiddleware::class,
 		'singleUserLogin'       => \App\Http\Middleware\SingleUserLoginMiddleware::class,
+		'jwt.verify'			=> \App\Http\Middleware\LeaderAuthMiddleware::class,
 	];
 }
