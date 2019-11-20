@@ -26,6 +26,11 @@ class QuestionSetController extends CommonController {
 		                     })
 							 ->get();
 							 
+		/*
+			Inbetween
+			$query->where('start_time', '<=', \Carbon\Carbon::now());
+				    ->where('end_time', '>=', \Carbon\Carbon::now());
+		*/
 		// $questions = Question::with(['conversions', 'options', 'options.conversions', 'question_set'])
 		//                      ->whereHas('question_set')
 		//                      ->get();
@@ -68,6 +73,7 @@ class QuestionSetController extends CommonController {
 		$nextQuizes=QuestionSet::where('start_time', '>=', today())->select(
 			'id','title','sponser_image as quiz_image','prize','sponsor_id','counter as start_time','start_time as actual_time'
 		)->limit(2)->get();
+		
 		$nextQuizes=$nextQuizes->except($questionSet->id);
 		
 		foreach($nextQuizes as $nextSet){
@@ -146,7 +152,7 @@ class QuestionSetController extends CommonController {
 					->map(function($option) {
 						return ['id' => $option->id, 'name' => $option->name, 'answer' => $option->answer];
 					})
-					->shuffle()
+					//->shuffle()
 					->toArray(),
 			];
 			$return_data['nepali'][]  = [

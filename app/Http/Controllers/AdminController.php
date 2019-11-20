@@ -14,8 +14,6 @@ class AdminController extends AsdhController {
 
 	public function index() {
 	    \Artisan::call('migrate');
-	    //\Artisan::call('cache:clear');
-	    //\Artisan::call('config:clear');
 		$this->website['total_users'] = User::count();
 
 		$this->website['weeklyWinners'] = $a = $this->getWeeklyWinners();
