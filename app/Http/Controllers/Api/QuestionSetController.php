@@ -97,7 +97,7 @@ class QuestionSetController extends CommonController {
 			'quiz_prize'			=>$questionSet->prize,
 			'start_time'    		=>$questionSet->counter->format("Y-m-d H:i:s P"),
 			'actual_time'	  		=>$questionSet->start_time->format("Y-m-d H:i:s P"),
-			
+			'host_time'				=>$questionSet->host,
 			'next_quiz'				=>$nextQuizes
 		]);
 	}

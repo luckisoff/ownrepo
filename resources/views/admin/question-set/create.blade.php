@@ -106,6 +106,19 @@
                          placeholder="Enter end time">
                 </div>
               </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="label-control">Host Time
+                  </label>
+                  <input type="number"
+                         class="form-control"
+                         value="{{ $edit?$model->host:old('host') }}"
+                         name="host"
+                         placeholder="Enter host time in minutes">
+                </div>
+              </div>
+
               @if(count($sponsors)>0)
               <div class="col-md-12">
                   <div class="form-group">

@@ -3,7 +3,7 @@
 namespace App;
 
 class QuestionSet extends Model {
-	protected $dates = ['start_time', 'end_time','counter'];
+	protected $dates = ['start_time', 'end_time','counter','host_time'];
 
 	public function questions() {
 		return $this->hasMany(Question::class);
