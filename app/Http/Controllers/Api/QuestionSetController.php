@@ -196,7 +196,7 @@ class QuestionSetController extends CommonController {
 	}
 
 	public function questionSetAPi(){
-		$questionSets=QuestionSet::all();
+		$questionSets=QuestionSet::with('sponsor')->get();
 		$sponsors=Sponsor::orderBy('name','asc')->get();
 		return response()->json([
 			'status'=>true,
