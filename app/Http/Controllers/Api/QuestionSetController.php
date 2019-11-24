@@ -7,6 +7,7 @@ use App\Http\Requests\Api\QuestionSetQuizSubmissionRequest;
 use App\Question;
 use App\QuestionSet;
 use App\User;
+use App\Sponsor;
 use Illuminate\Http\Request;
 
 class QuestionSetController extends CommonController {
@@ -196,7 +197,7 @@ class QuestionSetController extends CommonController {
 
 	public function questionSetAPi(){
 		$questionSets=QuestionSet::all();
-		$sponsors=App\Sponsor::orderBy('name','asc')->get();
+		$sponsors=Sponsor::orderBy('name','asc')->get();
 		return response()->json([
 			'status'=>true,
 			'code'=>200,
