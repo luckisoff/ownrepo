@@ -99,5 +99,7 @@ Route::get('get-question-level/{user_id?}/{level?}', 'QuestionLevelController@qu
 
 //live quiz api
 //Route::get('live-question','Api\QuestionSetController@index');
+Route::get('live-quiz-api','Api\QuestionSetController@questionSetAPi');
+Route::post('live-quiz-api-update','Api\QuestionSetController@questionSetAPiUpdate');
 
 

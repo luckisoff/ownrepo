@@ -193,4 +193,18 @@ class QuestionSetController extends CommonController {
 	private function deleteGeneratedQuestions($user): void {
 		$user->generated_questions_from_question_set()->sync([]);
 	}
+
+	public function questionSetAPi(){
+		$questionSets=QuestionSet::all();
+		return response()->json([
+			'status'=>true,
+			'code'=>200,
+			'message'=>'Live quiz listing',
+			'data'=>$questionSets
+		]);
+	}
+
+	public function questionSetAPiUpdate(Request $request){
+		return $request->all();
+	}
 }
