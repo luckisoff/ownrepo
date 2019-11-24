@@ -196,15 +196,43 @@ class QuestionSetController extends CommonController {
 
 	public function questionSetAPi(){
 		$questionSets=QuestionSet::all();
+		$sponsors=Sponsor::orderBy('name','asc')->get();
 		return response()->json([
 			'status'=>true,
 			'code'=>200,
 			'message'=>'Live quiz listing',
-			'data'=>$questionSets
+			'data'=>[
+				'livequizes'=>$questionSets,
+				'sponsor'=>$sponsors
+			]
 		]);
 	}
 
 	public function questionSetAPiUpdate(Request $request){
-		return $request->all();
+		$questionSet=QuestionSet::find($request->id);
+		if(!$questionSet){
+			return response()->json([
+				'status'=>false,
+				'code'=>200,
+				'message'=>'No Live quiz found',
+				'data'=>''
+			]);
+		}
+
+		$questionSet->update([
+			'title'=>$request->title,
+			'counter'=>Carbon::parse($request->timer),
+			'start_time'=>Carbon::parse($request->start_time),
+			'end_time'=>Carbon::parse($request->end_time),
+			'host'	  =>$request->host_time,
+			'sponsor_id'=>$request->sponsor_id
+		]);
+
+		return response()->json([
+			'status'=>true,
+			'code'=>200,
+			'message'=>'update successful',
+			'data'=>''
+		]);
 	}
 }
