@@ -127,7 +127,7 @@
                     <select name="sponsor" id="sponsor" class="form-control">
                       <option value="">Choose Sponser</option>
                       @foreach($sponsors as $sponsor)
-                        <option value="{{$sponsor->id}}">{{$sponsor->name}}</option>
+                        <option value="{{$sponsor->id}}" {{$model->sponsor_id==$sponsor->id?'selected':''}}>{{$sponsor->name}}</option>
                       @endforeach
                     </select>
                   </div>
